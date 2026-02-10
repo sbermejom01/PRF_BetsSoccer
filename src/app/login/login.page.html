@@ -1,0 +1,71 @@
+<ion-content [fullscreen]="true" class="cyber-login-bg">
+  <ion-grid class="ion-no-padding login-grid">
+    <ion-row class="full-height">
+      
+      <ion-col size="12" size-md="7" class="left-panel ion-hide-md-down">
+        <div class="brand-container">
+          <h1 class="main-title">APUEST<span class="text-white">EITOR</span></h1>
+          <h2 class="sub-title">EL FUTURO DEL JUEGO</h2>
+          
+          <div class="divider-line"></div>
+          
+          <div class="system-details">
+            <p class="description">
+              Accede a la plataforma de predicción deportiva más avanzada del mundo. 
+              Algoritmos cuánticos a tu servicio.
+            </p>
+          </div>
+        </div>
+      </ion-col>
+
+      <ion-col size="12" size-md="5" class="right-panel">
+        <div class="login-wrapper">
+          
+          <ion-card class="cyber-card">
+            <div class="logo-apuesteitor"></div>
+            
+            <ion-card-header class="ion-text-center">
+              <ion-card-title class="form-title">Iniciar Sesión</ion-card-title>
+            </ion-card-header>
+
+            <ion-card-content>
+              <form>
+                <div class="input-group">
+                  <label>NOMBRE DE USUARIO</label>
+                  <div class="input-container">
+                    <ion-icon name="person-outline"></ion-icon>
+                    <input type="text" placeholder="Cyborg001" class="native-input">
+                  </div>
+                </div>
+
+                <div class="input-group">
+                  <div class="label-row">
+                    <label>CONTRASEÑA</label>
+                    <a href="#" class="forgot">¿Olvidaste tu contraseña?</a>
+                  </div>
+                  <div class="input-container">
+                    <ion-icon name="lock-closed-outline"></ion-icon>
+                    <input [type]="showPassword ? 'text' : 'password'" placeholder="........" class="native-input">
+                    <ion-icon [name]="showPassword ? 'eye-off-outline' : 'eye-outline'" 
+                              class="eye-icon" 
+                              (click)="showPassword = !showPassword"></ion-icon>
+                  </div>
+                </div>
+
+                <ion-button expand="block" class="submit-btn">
+                  INICIAR SESIÓN <ion-icon name="arrow-forward" slot="end"></ion-icon>
+                </ion-button>
+
+                <div class="register-link">
+                  ¿No tienes acceso? <a href="#">Crear cuenta nueva</a>
+                </div>
+              </form>
+            </ion-card-content>
+          </ion-card>
+
+        </div>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+</ion-content>

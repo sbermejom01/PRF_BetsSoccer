@@ -1,0 +1,241 @@
+/* --- CONFIGURACIÓN GLOBAL --- */
+:host {
+  --bg-dark-navy: #060910;
+  --bg-card: #0f1525;
+  --c-accent-blue: #2f80ed;
+  --c-glow-cyan: #00f0ff;
+  --c-text-main: #ffffff;
+  --c-text-muted: #64748b;
+  --font-display: 'Rajdhani', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+.full-height {
+  height: 100vh;
+  min-height: 600px;
+}
+
+/* --- PANEL IZQUIERDO (IMAGEN OJO) --- */
+.left-panel {
+  position: relative;
+  background: url('/assets/cyborg-eye-bg.png') no-repeat center center;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  padding-left: 6%;
+  overflow: hidden;
+}
+
+.left-panel::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0) 100%);
+  z-index: 1;
+}
+
+.brand-container {
+  position: relative;
+  z-index: 10;
+  max-width: 500px;
+}
+
+.main-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 3.8rem;
+  color: var(--c-glow-cyan);
+  margin: 0;
+  line-height: 1;
+  text-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+}
+
+.text-white {
+  color: white;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+}
+
+.sub-title {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  letter-spacing: 6px;
+  color: #3b82f6;
+  font-weight: 600;
+  margin-top: 10px;
+  text-transform: uppercase;
+}
+
+.divider-line {
+  width: 50px;
+  height: 4px;
+  background: #3b82f6;
+  margin: 25px 0;
+}
+
+.description {
+  color: #94a3b8;
+  line-height: 1.5;
+  font-size: 1rem;
+  max-width: 400px;
+}
+
+/* --- PANEL DERECHO (FORMULARIO) --- */
+.right-panel {
+  background-color: var(--bg-dark-navy);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 40px;
+}
+
+/* EL CORTE DIAGONAL MÁGICO */
+.right-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -120px;
+  width: 250px;
+  background: var(--bg-dark-navy);
+  transform: skewX(-12deg);
+  z-index: 0;
+  border-left: 1px solid rgba(255,255,255,0.05);
+}
+
+.login-wrapper {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  max-width: 400px;
+}
+
+/* --- TARJETA --- */
+.cyber-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  overflow: visible;
+  margin-bottom: 20px;
+  padding: 10px;
+}
+
+.logo-apuesteitor {
+  width: 100px;
+  height: 100px;
+  background: url(/assets/logoApuesteitor.png);
+  background-size: cover;
+  background-position: center;
+  margin: 0 auto 10px auto;
+}
+
+.form-title {
+  color: white;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+/* --- INPUTS --- */
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  color: #64748b;
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  background: #090e1a;
+  border: 1px solid #1e293b;
+  border-radius: 8px;
+  padding: 0 12px;
+  height: 48px;
+  transition: border-color 0.3s;
+}
+
+.input-container:focus-within {
+  border-color: var(--c-accent-blue);
+  box-shadow: 0 0 0 1px var(--c-accent-blue);
+}
+
+.input-container ion-icon {
+  color: #475569;
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.native-input {
+  background: transparent;
+  border: none;
+  color: white;
+  flex: 1;
+  outline: none;
+  font-size: 0.95rem;
+}
+
+.label-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.forgot {
+  font-size: 0.75rem;
+  color: #3b82f6;
+  text-decoration: none;
+}
+
+.eye-icon {
+  cursor: pointer;
+  margin-right: 0 !important;
+  margin-left: 10px;
+}
+
+/* --- BOTÓN --- */
+.submit-btn {
+  --background: linear-gradient(90deg, #2563eb, #3b82f6);
+  --border-radius: 8px;
+  --color: white;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-top: 30px;
+  height: 48px;
+  box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.3);
+}
+
+.register-link {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: var(--c-text-muted);
+}
+
+.register-link a {
+  color: #3b82f6;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 991px) {
+  .right-panel::before {
+    transform: skewX(0);
+    left: 0;
+    width: 100%;
+    display: none;
+  }
+  
+  .right-panel {
+    background: rgba(6, 9, 16, 0.95);
+  }
+}
