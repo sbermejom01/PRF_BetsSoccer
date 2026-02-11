@@ -1,43 +1,41 @@
-/* --- DEFINICIÓN DE COLORES LOCALES (Para que no falle nunca) --- */
+/* --- ESTRUCTURA PRINCIPAL --- */
 :host {
-  --bg-dark: #060910;
-  --bg-card: #0f1525;
-  --accent: #2f80ed;
-  --cyan: #00f0ff;
-  --text-muted: #64748b;
-  
   display: block;
-  background-color: var(--bg-dark); /* Fondo de seguridad */
+  height: 100%;
 }
 
-/* Fondo general */
+/* Fondo de seguridad por si la imagen tarda en cargar */
 .cyber-login-bg {
   --background: #060910 url('/assets/cyborg-eye-bg.png') no-repeat center center / cover;
 }
 
+.login-grid {
+  height: 100%;
+}
+
 .full-height {
-  height: 100vh;
-  min-height: 700px;
+  height: 100%;
+  min-height: 100vh;
 }
 
 /* --- PANEL IZQUIERDO --- */
 .left-panel {
   position: relative;
-  /* TU RUTA CON BARRA, usando la técnica Shinobi */
+  /* Ruta con barra como pediste */
   background: url('/assets/cyborg-eye-bg.png') no-repeat center center / cover;
   display: flex;
   align-items: center;
   padding-left: 6%;
   overflow: hidden;
-  height: 100%; /* Asegura altura */
+  height: 100%;
 }
 
-/* Overlay para oscurecer (Igual que Shinobi) */
+/* Capa oscura sobre la imagen izquierda */
 .left-panel::after {
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: linear-gradient(to right, rgba(6, 9, 16, 0.9) 0%, rgba(6, 9, 16, 0.4) 50%, rgba(6, 9, 16, 0.1) 100%);
+  background: linear-gradient(to right, rgba(6, 9, 16, 0.9) 0%, rgba(6, 9, 16, 0.3) 50%, rgba(6, 9, 16, 0.1) 100%);
   z-index: 1;
 }
 
@@ -47,11 +45,12 @@
   max-width: 500px;
 }
 
+/* Tipografías y Textos */
 .main-title {
   font-family: 'Rajdhani', sans-serif;
   font-weight: 800;
   font-size: 3.8rem;
-  color: #00f0ff; /* Color directo */
+  color: #00f0ff;
   margin: 0;
   line-height: 1;
   text-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
@@ -86,9 +85,9 @@
   max-width: 400px;
 }
 
-/* --- PANEL DERECHO --- */
+/* --- PANEL DERECHO (SOLUCIÓN VISIBILIDAD) --- */
 .right-panel {
-  background-color: #060910; /* Color directo */
+  background-color: #060910; /* Color fijo negro */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -96,15 +95,16 @@
   position: relative;
   padding: 40px;
   height: 100%;
+  z-index: 2; /* Asegura que esté sobre cualquier capa extraña */
 }
 
-/* CORTE DIAGONAL */
+/* Corte Diagonal */
 .right-panel::before {
   content: '';
   position: absolute;
   top: 0; bottom: 0; left: -100px;
   width: 200px;
-  background: #060910; /* Color directo */
+  background: #060910; /* Color fijo negro */
   transform: skewX(-12deg);
   z-index: 0;
   border-left: 1px solid rgba(255,255,255,0.05);
@@ -112,26 +112,25 @@
 
 .login-wrapper {
   position: relative;
-  z-index: 5;
+  z-index: 50; /* Z-INDEX ALTO: Esto fuerza a que se vea */
   width: 100%;
   max-width: 400px;
 }
 
-/* --- TARJETA (Estilo Shinobi Card) --- */
+/* --- TARJETA --- */
 .cyber-card {
-  background: rgba(15, 21, 37, 0.95); /* Color directo */
+  background: rgba(15, 21, 37, 0.95); /* Color casi opaco */
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 16px;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8); /* Sombra fuerte */
   margin-bottom: 20px;
-  padding: 15px;
+  padding: 10px;
   overflow: visible;
 }
 
 .logo-apuesteitor {
   width: 100px;
   height: 100px;
-  /* TU RUTA CON BARRA */
   background: url('/assets/logoApuesteitor.png') no-repeat center center / contain;
   margin: 0 auto 10px auto;
 }
@@ -161,7 +160,7 @@
 .input-container {
   display: flex;
   align-items: center;
-  background: #090e1a; /* Color directo */
+  background: #090e1a;
   border: 1px solid #1e293b;
   border-radius: 8px;
   padding: 0 12px;
@@ -205,6 +204,7 @@
   cursor: pointer;
   margin-right: 0 !important;
   margin-left: 10px;
+  z-index: 10;
 }
 
 /* --- BOTÓN --- */
@@ -239,6 +239,8 @@
   }
   .right-panel {
     background: rgba(6, 9, 16, 0.98);
+    height: auto;
+    min-height: 100vh;
   }
   .left-panel {
     display: none;
