@@ -148,7 +148,9 @@
 
 /* --- INPUTS --- */
 .input-group {
-  margin-bottom: 16px;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 10;
 }
 
 .input-group label {
@@ -222,14 +224,30 @@
 }
 
 /* --- BOTÓN --- */
+/* --- BOTÓN BLINDADO --- */
 .submit-btn {
-  --background: linear-gradient(90deg, #2563eb, #3b82f6);
+  /* Forzamos el fondo gradiente sobre el estilo de Ionic */
+  --background: linear-gradient(90deg, #2563eb, #3b82f6) !important;
+  --background-activated: #1d4ed8 !important; /* Color al pulsar */
+  --background-hover: #1d4ed8 !important;
+  
+  /* Texto blanco forzado */
+  --color: #ffffff !important;
+  
+  /* Estilos */
   --border-radius: 8px;
-  --color: white;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  height: 48px;
-  box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.3);
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-top: 30px;
+  height: 52px; /* Un poco más alto para facilitar el dedo */
+  box-shadow: 0 0 15px rgba(47, 128, 237, 0.4); /* Glow para que destaque */
+  
+  /* !!! ESTO ES LO QUE ARREGLA EL CLICK !!! */
+  position: relative;
+  z-index: 999 !important; /* Asegura que esté encima de todo */
+  cursor: pointer !important;
+  pointer-events: auto !important; /* Fuerza que detecte el ratón/dedo */
+  overflow: visible !important; /* Deja ver la sombra */
 }
 
 .register-link {
