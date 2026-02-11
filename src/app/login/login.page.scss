@@ -5,7 +5,6 @@
 }
 
 .cyber-login-bg {
-  /* Ruta sin barra inicial para que funcione en Vercel */
   --background: #060910 url('/assets/cyborg-eye-bg.png') no-repeat center center / cover;
 }
 
@@ -29,7 +28,6 @@
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  /* Gradiente oscuro para leer mejor el texto */
   background: linear-gradient(to right, rgba(6, 9, 16, 0.9) 0%, rgba(6, 9, 16, 0.3) 50%, rgba(6, 9, 16, 0.1) 100%);
   z-index: 1;
 }
@@ -81,7 +79,7 @@
 
 /* --- PANEL DERECHO --- */
 .right-panel {
-  background-color: #060910; /* Color negro fijo */
+  background-color: #060910;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -91,7 +89,7 @@
   height: 100%;
 }
 
-/* EL CORTE DIAGONAL (Tu diseño original) */
+/* EL CORTE DIAGONAL */
 .right-panel::before {
   content: '';
   position: absolute;
@@ -105,14 +103,13 @@
 
 .login-wrapper {
   position: relative;
-  z-index: 50; /* Z-index alto para que se vea */
+  z-index: 50;
   width: 100%;
   max-width: 400px;
 }
 
 /* --- TARJETA --- */
 .cyber-card {
-  /* Fondo oscuro fijo (no variable) para que no sea transparente */
   background: rgba(15, 21, 37, 0.95);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 16px;
@@ -161,11 +158,10 @@
   background: #090e1a;
   border: 1px solid #1e293b;
   border-radius: 8px;
-  /* Quitamos padding derecho para que lo gestione el icono */
   padding: 0 0 0 12px; 
   height: 48px;
   transition: border-color 0.3s;
-  position: relative; /* Clave para el ojo */
+  position: relative;
 }
 
 .input-container:focus-within {
@@ -179,7 +175,6 @@
   margin-right: 10px;
 }
 
-/* Input nativo */
 .native-input {
   background: transparent;
   border: none;
@@ -189,7 +184,6 @@
   font-size: 0.95rem;
   width: 100%;
   height: 100%;
-  /* Dejamos espacio a la derecha para que el texto no se coma al ojo */
   padding-right: 45px; 
 }
 
@@ -198,17 +192,16 @@
   justify-content: space-between;
 }
 
-/* --- ARREGLO DEL OJO --- */
 .eye-icon {
-  position: absolute; /* Lo sacamos del flujo para pegarlo a la derecha */
+  position: absolute;
   right: 10px;
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
-  z-index: 20; /* Por encima del input */
+  z-index: 20; 
   color: #64748b;
   font-size: 22px;
-  padding: 5px; /* Área de click */
+  padding: 5px;
 }
 
 .eye-icon:hover {
@@ -236,7 +229,7 @@
   gap: 10px;
 }
 
-/* --- MENSAJES DE ERROR / ÉXITO (NUEVO) --- */
+/* --- MENSAJES DE ERROR / ÉXITO --- */
 .message-box {
   margin-top: 15px;
   padding: 10px;
@@ -277,8 +270,6 @@
   font-weight: 600;
 }
 
-/* --- CORRECCIÓN GRID VERCEL (OBLIGATORIA) --- */
-/* Esto arregla que el panel derecho desaparezca */
 @media (min-width: 768px) {
   .full-height {
     display: flex !important;
@@ -295,7 +286,7 @@
     flex: 0 0 41.666667%;
     max-width: 41.666667%;
     width: 41.666667%;
-    display: flex !important; /* Fuerza visibilidad */
+    display: flex !important;
   }
   
   .right-panel::before {

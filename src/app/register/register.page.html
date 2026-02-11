@@ -12,7 +12,6 @@
           <div class="system-details">
             <p class="description">
               Únete a la élite. Crea tu identidad digital y accede al sistema de predicción cuántica.
-              <br><br>
             </p>
           </div>
         </div>
@@ -24,17 +23,18 @@
           <div class="cyber-card">
             <div class="logo-apuesteitor"></div>
             
-            <div class="ion-text-center">
+            <div class="header-center">
               <h2 class="form-title">Crear Cuenta</h2>
             </div>
 
             <div class="card-content-wrapper" style="padding-top: 20px;">
               <form (ngSubmit)="onRegister()">
+                
                 <div class="input-group">
                   <label>NOMBRE DE USUARIO</label>
                   <div class="input-container">
                     <ion-icon name="person-outline"></ion-icon>
-                    <input type="text" [(ngModel)]="userData.username" name="username" placeholder="Apuestineitor09" class="native-input">
+                    <input type="text" [(ngModel)]="userData.username" name="username" placeholder="Apuestineitor09" class="native-input" required>
                   </div>
                 </div>
 
@@ -42,7 +42,7 @@
                   <label>CORREO ELECTRÓNICO</label>
                   <div class="input-container">
                     <ion-icon name="mail-outline"></ion-icon>
-                    <input type="email" [(ngModel)]="userData.email" name="email" placeholder="usuario@apuesteitor.com" class="native-input">
+                    <input type="email" [(ngModel)]="userData.email" name="email" placeholder="usuario@apuesteitor.com" class="native-input" required>
                   </div>
                 </div>
 
@@ -50,16 +50,21 @@
                   <label>CONTRASEÑA MAESTRA</label>
                   <div class="input-container">
                     <ion-icon name="lock-closed-outline"></ion-icon>
-                    <input [type]="showPassword ? 'text' : 'password'" [(ngModel)]="userData.password" name="password" placeholder="........" class="native-input">
+                    <input [type]="showPassword ? 'text' : 'password'" [(ngModel)]="userData.password" name="password" placeholder="........" class="native-input" required>
                     <ion-icon [name]="showPassword ? 'eye-off-outline' : 'eye-outline'" 
                               class="eye-icon" 
                               (click)="showPassword = !showPassword"></ion-icon>
                   </div>
                 </div>
 
-                <ion-button expand="block" class="submit-btn" type="submit">
-                  REGISTRARSE
-                </ion-button>
+                <button type="submit" class="submit-btn" [disabled]="isLoading">
+                  <span *ngIf="!isLoading">REGISTRARSE</span>
+                  <span *ngIf="isLoading">PROCESANDO...</span>
+                </button>
+
+                <div class="message-box" *ngIf="feedbackMessage" [ngClass]="{'msg-error': isError, 'msg-success': !isError}">
+                  {{ feedbackMessage }}
+                </div>
 
                 <div class="register-link">
                   ¿Ya tienes identidad? <a routerLink="/login">Iniciar Sesión</a>
@@ -67,7 +72,7 @@
               </form>
             </div>
           </div>
-          </div>
+        </div>
       </ion-col>
 
     </ion-row>

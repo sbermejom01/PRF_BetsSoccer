@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { IonicModule, ToastController } from '@ionic/angular';
+import { IonicModule } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import { personOutline, mailOutline, lockClosedOutline, eyeOutline, eyeOffOutline } from 'ionicons/icons';
 import { AuthService } from '../services/auth.service';
@@ -16,6 +16,10 @@ import { AuthService } from '../services/auth.service';
 })
 export class RegisterPage {
   showPassword = false;
+  isLoading = false;
+  
+  feedbackMessage: string = '';
+  isError: boolean = false;
   
   userData = {
     username: '',
@@ -25,37 +29,47 @@ export class RegisterPage {
 
   constructor(
     private authService: AuthService, 
-    private router: Router,
-    private toastCtrl: ToastController
+    private router: Router
   ) {
     addIcons({ personOutline, mailOutline, lockClosedOutline, eyeOutline, eyeOffOutline });
   }
 
-  async onRegister() {
+  onRegister() {
+    this.feedbackMessage = '';
+    this.isError = false;
+
     if (!this.userData.username || !this.userData.email || !this.userData.password) {
-      this.showToast('Por favor completa todos los campos');
+      this.showFeedback('Por favor completa todos los campos', true);
       return;
     }
 
+    this.isLoading = true;
+
     this.authService.register(this.userData).subscribe({
-      next: async (res) => {
-        await this.showToast('Registro exitoso. Inicia sesión.');
-        this.router.navigate(['/login']);
+      next: (res) => {
+        this.isLoading = false;
+        this.showFeedback('¡Registro exitoso! Redirigiendo...', false);
+        
+        setTimeout(() => {
+          this.router.navigate(['/login']);
+        }, 1500);
       },
-      error: async (err) => {
-        console.error(err);
-        await this.showToast(err.error.error || 'Error al registrarse');
+      error: (err) => {
+        this.isLoading = false;
+        const msg = err.error?.error || 'Error al registrarse. Inténtalo de nuevo.';
+        this.showFeedback(msg, true);
       }
     });
   }
 
-  async showToast(msg: string) {
-    const toast = await this.toastCtrl.create({
-      message: msg,
-      duration: 2000,
-      position: 'bottom',
-      color: 'primary'
-    });
-    toast.present();
+  showFeedback(msg: string, isError: boolean) {
+    this.feedbackMessage = msg;
+    this.isError = isError;
+    
+    if (isError) {
+      setTimeout(() => {
+        this.feedbackMessage = '';
+      }, 5000);
+    }
   }
 }
