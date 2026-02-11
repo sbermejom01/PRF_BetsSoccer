@@ -1,20 +1,25 @@
-/* --- ESTRUCTURA --- */
+/* --- ESTRUCTURA PRINCIPAL --- */
 :host {
   display: block;
   height: 100%;
 }
 
+/* Fondo de seguridad */
 .cyber-login-bg {
   --background: #060910 url('/assets/cyborg-eye-bg.png') no-repeat center center / cover;
 }
 
 .login-grid {
   height: 100%;
+  width: 100%;
 }
 
 .full-height {
   height: 100%;
   min-height: 100vh;
+  /* Aseguramos que sea flex container */
+  display: flex;
+  flex-wrap: wrap; 
 }
 
 /* --- PANEL IZQUIERDO --- */
@@ -26,8 +31,10 @@
   padding-left: 6%;
   overflow: hidden;
   height: 100%;
+  width: 100%; /* Por defecto móvil */
 }
 
+/* Capa oscura sobre la imagen */
 .left-panel::after {
   content: '';
   position: absolute;
@@ -91,9 +98,11 @@
   position: relative;
   padding: 20px;
   height: 100%;
+  width: 100%; /* Por defecto móvil */
   z-index: 2;
 }
 
+/* Corte Diagonal */
 .right-panel::before {
   content: '';
   position: absolute;
@@ -117,7 +126,7 @@
   background: rgba(15, 21, 37, 0.95);
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 16px;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
   margin-bottom: 20px;
   padding: 15px;
   overflow: visible;
@@ -236,17 +245,47 @@
   font-weight: 600;
 }
 
-/* --- RESPONSIVE --- */
-@media (max-width: 991px) {
+/* =========================================
+   !!! CORRECCIÓN GRID VERCEL !!!
+   Esta es la parte clave que faltaba en el register
+   ========================================= */
+@media (min-width: 768px) {
+  
+  /* Aseguramos que la fila sea horizontal */
+  .full-height {
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+  }
+
+  /* Panel Izquierdo: Fuerza el 58.33% (7 columnas) */
+  .left-panel {
+    flex: 0 0 58.33% !important;
+    width: 58.33% !important;
+    max-width: 58.33% !important;
+    display: flex !important;
+  }
+
+  /* Panel Derecho: Fuerza el 41.66% (5 columnas) */
+  .right-panel {
+    flex: 0 0 41.66% !important;
+    width: 41.66% !important;
+    max-width: 41.66% !important;
+    background: rgba(6, 9, 16, 0.98); /* Mantiene tu estilo */
+  }
+
+  /* El corte diagonal solo visible en escritorio */
   .right-panel::before {
-    display: none;
+    display: block !important;
+  }
+}
+
+/* En móvil, ocultamos la izquierda explícitamente si Ionic falla */
+@media (max-width: 767px) {
+  .left-panel {
+    display: none !important;
   }
   .right-panel {
-    background: rgba(6, 9, 16, 0.98);
-    height: auto;
-    min-height: 100vh;
-  }
-  .left-panel {
-    display: none;
+    width: 100% !important;
+    flex: 0 0 100% !important;
   }
 }

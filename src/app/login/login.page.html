@@ -21,17 +21,18 @@
       <ion-col size="12" size-md="5" class="right-panel">
         <div class="login-wrapper">
           
-          <ion-card class="cyber-card">
+          <div class="cyber-card">
             <div class="logo-apuesteitor"></div>
             
-            <ion-card-header class="ion-text-center">
-              <ion-card-title class="form-title">Iniciar Sesión</ion-card-title>
-            </ion-card-header>
+            <div class="ion-text-center">
+              <h2 class="form-title">Iniciar Sesión</h2>
+            </div>
 
-            <ion-card-content>
+            <div class="card-content-wrapper" style="padding-top: 20px;">
               <form (ngSubmit)="onLogin()">
                 <div class="input-group">
-                  <label>CORREO ELECTRÓNICO</label> <div class="input-container">
+                  <label>CORREO ELECTRÓNICO</label>
+                  <div class="input-container">
                     <ion-icon name="person-outline"></ion-icon>
                     <input type="email" [(ngModel)]="loginData.email" name="email" placeholder="usuario@email.com" class="native-input">
                   </div>
@@ -56,10 +57,9 @@
                   ¿No tienes acceso? <a routerLink="/register">Crear cuenta nueva</a>
                 </div>
               </form>
-            </ion-card-content>
-          </ion-card>
-
-        </div>
+            </div>
+          </div>
+          </div>
       </ion-col>
 
     </ion-row>

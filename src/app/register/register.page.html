@@ -21,15 +21,16 @@
       <ion-col size="12" size-md="5" class="right-panel">
         <div class="login-wrapper">
           
-          <ion-card class="cyber-card">
+          <div class="cyber-card">
             <div class="logo-apuesteitor"></div>
             
-            <ion-card-header class="ion-text-center">
-              <ion-card-title class="form-title">Crear Cuenta</ion-card-title>
-            </ion-card-header>
+            <div class="ion-text-center">
+              <h2 class="form-title">Crear Cuenta</h2>
+            </div>
 
-            <ion-card-content>
-              <form (ngSubmit)="onRegister()"> <div class="input-group">
+            <div class="card-content-wrapper" style="padding-top: 20px;">
+              <form (ngSubmit)="onRegister()">
+                <div class="input-group">
                   <label>NOMBRE DE USUARIO</label>
                   <div class="input-container">
                     <ion-icon name="person-outline"></ion-icon>
@@ -64,10 +65,9 @@
                   ¿Ya tienes identidad? <a routerLink="/login">Iniciar Sesión</a>
                 </div>
               </form>
-            </ion-card-content>
-          </ion-card>
-
-        </div>
+            </div>
+          </div>
+          </div>
       </ion-col>
 
     </ion-row>
