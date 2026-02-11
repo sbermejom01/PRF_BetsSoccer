@@ -57,10 +57,10 @@
                   </div>
                 </div>
 
-                <button type="submit" class="submit-btn" [disabled]="isLoading">
+                <ion-button type="submit" class="submit-btn" [disabled]="isLoading">
                   <span *ngIf="!isLoading">REGISTRARSE</span>
                   <span *ngIf="isLoading">PROCESANDO...</span>
-                </button>
+                </ion-button>
 
                 <div class="message-box" *ngIf="feedbackMessage" [ngClass]="{'msg-error': isError, 'msg-success': !isError}">
                   {{ feedbackMessage }}
