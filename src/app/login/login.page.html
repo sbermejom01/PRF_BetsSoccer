@@ -1,65 +1,71 @@
-<ion-content [fullscreen]="true" class="cyber-bg">
-  <div class="overlay"></div>
-
-  <div class="container">
-    
-    <div class="left-section ion-hide-md-down">
-      <div class="logo-container">
-        <div class="logo-icon">
-          <ion-icon name="hardware-chip-outline"></ion-icon> 
-        </div>
-        <span class="logo-text">APUESTEITOR SYSTEM</span>
-      </div>
-
-      <h1 class="main-title">
-        EL FUTURO<br>
-        DEL <span class="text-cyan">JUEGO</span>
-      </h1>
-
-      <p class="description">
-        Accede a la plataforma de predicción deportiva más avanzada del mundo. 
-        Algoritmos cuánticos a tu servicio.
-      </p>
-    </div>
-
-    <div class="right-section">
-      <div class="login-card">
-        
-        <div class="logo-apuesteitor"></div>
-        
-        <h2 class="card-title">INICIAR SESIÓN</h2>
-        <p class="card-subtitle">Introduce tus credenciales de acceso.</p>
-
-        <form (ngSubmit)="onLogin()">
+<ion-content [fullscreen]="true" class="cyber-login-bg">
+  <ion-grid class="ion-no-padding login-grid">
+    <ion-row class="full-height">
+      
+      <ion-col size="12" size-md="7" class="left-panel ion-hide-md-down">
+        <div class="brand-container">
+          <h1 class="main-title">APUEST<span class="text-white">EITOR</span></h1>
+          <h2 class="sub-title">EL FUTURO DEL JUEGO</h2>
           
-          <div class="input-group">
-            <label>
-              <ion-icon name="mail-outline" class="label-icon"></ion-icon> CORREO ELECTRÓNICO
-            </label>
-            <input type="email" [(ngModel)]="loginData.email" name="email" placeholder="usuario@email.com" class="dark-input">
+          <div class="divider-line"></div>
+          
+          <div class="system-details">
+            <p class="description">
+              Accede a la plataforma de predicción deportiva más avanzada del mundo. 
+              Algoritmos cuánticos a tu servicio.
+            </p>
           </div>
+        </div>
+      </ion-col>
 
-          <div class="input-group">
-            <label>
-              <ion-icon name="lock-closed-outline" class="label-icon"></ion-icon> CONTRASEÑA
-            </label>
-            <div class="password-wrapper">
-              <input [type]="showPassword ? 'text' : 'password'" [(ngModel)]="loginData.password" name="password" placeholder="........" class="dark-input">
-              <ion-icon [name]="showPassword ? 'eye-off-outline' : 'eye-outline'" class="eye-icon" (click)="showPassword = !showPassword"></ion-icon>
+      <ion-col size="12" size-md="5" class="right-panel">
+        <div class="login-wrapper">
+          
+          <div class="cyber-card">
+            <div class="logo-apuesteitor"></div>
+            
+            <div class="header-center">
+              <h2 class="form-title">Iniciar Sesión</h2>
+            </div>
+
+            <div class="form-content">
+              <form (ngSubmit)="onLogin()">
+                
+                <div class="input-group">
+                  <label>CORREO ELECTRÓNICO</label>
+                  <div class="input-container">
+                    <ion-icon name="person-outline"></ion-icon>
+                    <input type="email" [(ngModel)]="loginData.email" name="email" placeholder="usuario@email.com" class="native-input">
+                  </div>
+                </div>
+
+                <div class="input-group">
+                  <div class="label-row">
+                    <label>CONTRASEÑA</label>
+                  </div>
+                  <div class="input-container">
+                    <ion-icon name="lock-closed-outline"></ion-icon>
+                    <input [type]="showPassword ? 'text' : 'password'" [(ngModel)]="loginData.password" name="password" placeholder="........" class="native-input">
+                    <ion-icon [name]="showPassword ? 'eye-off-outline' : 'eye-outline'" 
+                              class="eye-icon" 
+                              (click)="showPassword = !showPassword"></ion-icon>
+                  </div>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                  INICIAR SESIÓN <ion-icon name="arrow-forward-outline"></ion-icon>
+                </button>
+
+                <div class="register-link">
+                  ¿No tienes acceso? <a routerLink="/register">Crear cuenta nueva</a>
+                </div>
+              </form>
             </div>
           </div>
 
-          <button class="btn-join" type="submit">
-            ACCEDER AL SISTEMA <ion-icon name="arrow-forward-outline"></ion-icon>
-          </button>
+        </div>
+      </ion-col>
 
-          <div class="card-footer">
-            ¿No tienes acceso? <a routerLink="/register">Crear cuenta nueva</a>
-          </div>
-        
-        </form>
-
-      </div>
-    </div>
-  </div>
+    </ion-row>
+  </ion-grid>
 </ion-content>
