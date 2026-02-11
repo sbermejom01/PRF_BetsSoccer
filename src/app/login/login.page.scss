@@ -215,29 +215,28 @@
 }
 
 /* --- BOTÓN BLINDADO --- */
+/* --- BOTÓN --- */
 .submit-btn {
-  /* Forzamos el fondo gradiente sobre el estilo de Ionic */
+  /* Forzamos el degradado ignorando el tema por defecto */
   --background: linear-gradient(90deg, #2563eb, #3b82f6) !important;
-  --background-activated: #1d4ed8 !important; /* Color al pulsar */
-  --background-hover: #1d4ed8 !important;
+  /* Color del texto forzado a blanco */
+  --color: white !important;
   
-  /* Texto blanco forzado */
-  --color: #ffffff !important;
-  
-  /* Estilos */
   --border-radius: 8px;
-  font-weight: 700;
-  letter-spacing: 1px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
   margin-top: 30px;
-  height: 52px; /* Un poco más alto para facilitar el dedo */
-  box-shadow: 0 0 15px rgba(47, 128, 237, 0.4); /* Glow para que destaque */
+  height: 48px;
   
-  /* !!! ESTO ES LO QUE ARREGLA EL CLICK !!! */
-  position: relative;
-  z-index: 999 !important; /* Asegura que esté encima de todo */
-  cursor: pointer !important;
-  pointer-events: auto !important; /* Fuerza que detecte el ratón/dedo */
-  overflow: visible !important; /* Deja ver la sombra */
+  /* Sombra para que destaque */
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4); 
+
+  /* --- SOLUCIÓN AL CLICK (Importante) --- */
+  position: relative; 
+  z-index: 9999 !important; /* Asegura que esté encima de todo */
+  cursor: pointer;
+  pointer-events: auto !important; /* Fuerza a que detecte el ratón/dedo */
+  overflow: visible; /* Permite que se vea la sombra */
 }
 
 .register-link {
