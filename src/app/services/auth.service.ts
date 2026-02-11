@@ -6,7 +6,7 @@ import { Observable, tap } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'https://prf-bets-soccer.vercel.app/api'; 
+  private apiUrl = 'https://api-bets-soccer.vercel.app/api'; 
   // private apiUrl = 'http://localhost:3000/api'; 
 
   constructor(private http: HttpClient) { }
