@@ -1,67 +1,65 @@
-<ion-content [fullscreen]="true" class="cyber-login-bg">
-  <ion-grid class="ion-no-padding login-grid">
-    <ion-row class="full-height">
-      
-      <ion-col size="12" size-md="7" class="left-panel ion-hide-md-down">
-        <div class="brand-container">
-          <h1 class="main-title">APUEST<span class="text-white">EITOR</span></h1>
-          <h2 class="sub-title">EL FUTURO DEL JUEGO</h2>
+<ion-content [fullscreen]="true">
+  <div class="split-pane">
+    
+    <div class="left-side ion-hide-md-down">
+      <div class="brand-content">
+        <h1>APUEST<span class="highlight">EITOR</span></h1>
+        <p>EL FUTURO DEL JUEGO</p>
+        <div class="divider"></div>
+        <small>Algoritmos cuánticos a tu servicio.</small>
+      </div>
+    </div>
+
+    <div class="right-side">
+      <div class="auth-card">
+        
+        <div class="logo-header"></div>
+        <h2>Iniciar Sesión</h2>
+
+        <form (ngSubmit)="onLogin()">
           
-          <div class="divider-line"></div>
-          
-          <div class="system-details">
-            <p class="description">
-              Accede a la plataforma de predicción deportiva más avanzada del mundo. 
-              Algoritmos cuánticos a tu servicio.
-            </p>
+          <ion-item lines="none" class="cyber-item">
+            <ion-icon slot="start" name="person-outline"></ion-icon>
+            <ion-input 
+              label="Correo Electrónico" 
+              labelPlacement="stacked" 
+              type="email" 
+              [(ngModel)]="loginData.email" 
+              name="email" 
+              placeholder="usuario@email.com">
+            </ion-input>
+          </ion-item>
+
+          <ion-item lines="none" class="cyber-item">
+            <ion-icon slot="start" name="lock-closed-outline"></ion-icon>
+            <ion-input 
+              label="Contraseña" 
+              labelPlacement="stacked" 
+              [type]="showPassword ? 'text' : 'password'" 
+              [(ngModel)]="loginData.password" 
+              name="password" 
+              placeholder="........">
+            </ion-input>
+            <ion-icon 
+              slot="end" 
+              [name]="showPassword ? 'eye-off-outline' : 'eye-outline'" 
+              (click)="showPassword = !showPassword"
+              class="eye-icon">
+            </ion-icon>
+          </ion-item>
+
+          <ion-button expand="block" type="submit" class="cyber-btn">
+            INICIAR SESIÓN
+            <ion-icon slot="end" name="arrow-forward"></ion-icon>
+          </ion-button>
+
+          <div class="footer-text">
+            ¿No tienes acceso? <a routerLink="/register">Crear cuenta nueva</a>
           </div>
-        </div>
-      </ion-col>
 
-      <ion-col size="12" size-md="5" class="right-panel">
-        <div class="login-wrapper">
-          
-          <div class="cyber-card">
-            <div class="logo-apuesteitor"></div>
-            
-            <div class="ion-text-center">
-              <h2 class="form-title">Iniciar Sesión</h2>
-            </div>
+        </form>
+      </div>
+    </div>
 
-            <div class="card-content-wrapper" style="padding-top: 20px;">
-              <form (ngSubmit)="onLogin()">
-                <div class="input-group">
-                  <label>CORREO ELECTRÓNICO</label>
-                  <div class="input-container">
-                    <ion-icon name="person-outline"></ion-icon>
-                    <input type="email" [(ngModel)]="loginData.email" name="email" placeholder="usuario@apuesteitor.com" class="native-input">
-                  </div>
-                </div>
-
-                <div class="input-group">
-                    <div class="label-row">
-                        <label>CONTRASEÑA</label>
-                    </div>
-                    <div class="input-container">
-                        <ion-icon name="lock-closed-outline"></ion-icon>
-                        <input [type]="showPassword ? 'text' : 'password'" [(ngModel)]="loginData.password" name="password" placeholder="........" class="native-input">
-                        <ion-icon [name]="showPassword ? 'eye-off-outline' : 'eye-outline'" class="eye-icon" (click)="showPassword = !showPassword"></ion-icon>
-                    </div>
-                </div>
-
-                <ion-button expand="block" class="submit-btn" type="submit">
-                  INICIAR SESIÓN
-                </ion-button>
-
-                <div class="register-link">
-                  ¿No tienes acceso? <a routerLink="/register">Crear cuenta nueva</a>
-                </div>
-              </form>
-            </div>
-          </div>
-          </div>
-      </ion-col>
-
-    </ion-row>
-  </ion-grid>
+  </div>
 </ion-content>
