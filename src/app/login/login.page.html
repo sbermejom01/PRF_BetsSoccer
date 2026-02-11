@@ -26,7 +26,7 @@
             </div>
 
             <div class="form-content">
-              <form (ngSubmit)="onLogin()">
+              <form>
                 
                 <div class="input-group">
                   <label>CORREO ELECTRÓNICO</label>
@@ -49,7 +49,7 @@
                   </div>
                 </div>
 
-                <ion-button type="submit" class="submit-btn" [disabled]="isLoading">
+                <ion-button (click)="onLogin()" type="submit" class="submit-btn" [disabled]="isLoading">
                   <span *ngIf="!isLoading">INICIAR SESIÓN</span>
                   <span *ngIf="isLoading">ACCEDIENDO...</span>
                   <ion-icon *ngIf="!isLoading" name="arrow-forward-outline"></ion-icon>
