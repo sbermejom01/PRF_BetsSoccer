@@ -4,33 +4,37 @@
   height: 100%;
 }
 
-/* Fondo de seguridad por si la imagen tarda en cargar */
+/* Fondo de seguridad */
 .cyber-login-bg {
   --background: #060910 url('/assets/cyborg-eye-bg.png') no-repeat center center / cover;
 }
 
 .login-grid {
   height: 100%;
+  width: 100%;
 }
 
 .full-height {
   height: 100%;
   min-height: 100vh;
+  /* Aseguramos que sea flex container */
+  display: flex;
+  flex-wrap: wrap; 
 }
 
 /* --- PANEL IZQUIERDO --- */
 .left-panel {
   position: relative;
-  /* Ruta con barra como pediste */
   background: url('/assets/cyborg-eye-bg.png') no-repeat center center / cover;
   display: flex;
   align-items: center;
   padding-left: 6%;
   overflow: hidden;
   height: 100%;
+  width: 100%; /* Por defecto móvil */
 }
 
-/* Capa oscura sobre la imagen izquierda */
+/* Capa oscura sobre la imagen */
 .left-panel::after {
   content: '';
   position: absolute;
@@ -45,7 +49,7 @@
   max-width: 500px;
 }
 
-/* Tipografías y Textos */
+/* Tipografías */
 .main-title {
   font-family: 'Rajdhani', sans-serif;
   font-weight: 800;
@@ -85,9 +89,9 @@
   max-width: 400px;
 }
 
-/* --- PANEL DERECHO (SOLUCIÓN VISIBILIDAD) --- */
+/* --- PANEL DERECHO --- */
 .right-panel {
-  background-color: #060910; /* Color fijo negro */
+  background-color: #060910;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -95,7 +99,8 @@
   position: relative;
   padding: 40px;
   height: 100%;
-  z-index: 2; /* Asegura que esté sobre cualquier capa extraña */
+  width: 100%; /* Por defecto móvil */
+  z-index: 2;
 }
 
 /* Corte Diagonal */
@@ -104,7 +109,7 @@
   position: absolute;
   top: 0; bottom: 0; left: -100px;
   width: 200px;
-  background: #060910; /* Color fijo negro */
+  background: #060910;
   transform: skewX(-12deg);
   z-index: 0;
   border-left: 1px solid rgba(255,255,255,0.05);
@@ -112,17 +117,17 @@
 
 .login-wrapper {
   position: relative;
-  z-index: 50; /* Z-INDEX ALTO: Esto fuerza a que se vea */
+  z-index: 50;
   width: 100%;
   max-width: 400px;
 }
 
 /* --- TARJETA --- */
 .cyber-card {
-  background: rgba(15, 21, 37, 0.95); /* Color casi opaco */
+  background: rgba(15, 21, 37, 0.95);
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 16px;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8); /* Sombra fuerte */
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
   margin-bottom: 20px;
   padding: 10px;
   overflow: visible;
@@ -207,7 +212,6 @@
   z-index: 10;
 }
 
-/* --- BOTÓN --- */
 .submit-btn {
   --background: linear-gradient(90deg, #2563eb, #3b82f6);
   --border-radius: 8px;
@@ -232,17 +236,48 @@
   font-weight: 600;
 }
 
-/* --- RESPONSIVE --- */
-@media (max-width: 991px) {
+/* =========================================
+   !!! CORRECCIÓN GRID VERCEL !!!
+   Esto fuerza a que las columnas se pongan
+   lado a lado en PC, ignorando a Ionic si falla.
+   ========================================= */
+@media (min-width: 768px) {
+  
+  /* Aseguramos que la fila sea horizontal */
+  .full-height {
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+  }
+
+  /* Panel Izquierdo: Fuerza el 58.33% (7 columnas) */
+  .left-panel {
+    flex: 0 0 58.33% !important;
+    width: 58.33% !important;
+    max-width: 58.33% !important;
+    display: flex !important; /* Asegura que se vea */
+  }
+
+  /* Panel Derecho: Fuerza el 41.66% (5 columnas) */
+  .right-panel {
+    flex: 0 0 41.66% !important;
+    width: 41.66% !important;
+    max-width: 41.66% !important;
+    background: rgba(6, 9, 16, 0.98); /* Mantiene tu estilo */
+  }
+
+  /* El corte diagonal solo visible en escritorio */
   .right-panel::before {
-    display: none;
+    display: block !important;
+  }
+}
+
+/* En móvil, ocultamos la izquierda explícitamente si Ionic falla */
+@media (max-width: 767px) {
+  .left-panel {
+    display: none !important;
   }
   .right-panel {
-    background: rgba(6, 9, 16, 0.98);
-    height: auto;
-    min-height: 100vh;
-  }
-  .left-panel {
-    display: none;
+    width: 100% !important;
+    flex: 0 0 100% !important;
   }
 }
