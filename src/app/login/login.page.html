@@ -1,65 +1,65 @@
-<ion-content [fullscreen]="true">
-  <div class="split-pane">
+<ion-content [fullscreen]="true" class="cyber-bg">
+  <div class="overlay"></div>
+
+  <div class="container">
     
-    <div class="left-side ion-hide-md-down">
-      <div class="brand-content">
-        <h1>APUEST<span class="highlight">EITOR</span></h1>
-        <p>EL FUTURO DEL JUEGO</p>
-        <div class="divider"></div>
-        <small>Algoritmos cuánticos a tu servicio.</small>
+    <div class="left-section ion-hide-md-down">
+      <div class="logo-container">
+        <div class="logo-icon">
+          <ion-icon name="hardware-chip-outline"></ion-icon> 
+        </div>
+        <span class="logo-text">APUESTEITOR SYSTEM</span>
       </div>
+
+      <h1 class="main-title">
+        EL FUTURO<br>
+        DEL <span class="text-cyan">JUEGO</span>
+      </h1>
+
+      <p class="description">
+        Accede a la plataforma de predicción deportiva más avanzada del mundo. 
+        Algoritmos cuánticos a tu servicio.
+      </p>
     </div>
 
-    <div class="right-side">
-      <div class="auth-card">
+    <div class="right-section">
+      <div class="login-card">
         
-        <div class="logo-header"></div>
-        <h2>Iniciar Sesión</h2>
+        <div class="logo-apuesteitor"></div>
+        
+        <h2 class="card-title">INICIAR SESIÓN</h2>
+        <p class="card-subtitle">Introduce tus credenciales de acceso.</p>
 
         <form (ngSubmit)="onLogin()">
           
-          <ion-item lines="none" class="cyber-item">
-            <ion-icon slot="start" name="person-outline"></ion-icon>
-            <ion-input 
-              label="Correo Electrónico" 
-              labelPlacement="stacked" 
-              type="email" 
-              [(ngModel)]="loginData.email" 
-              name="email" 
-              placeholder="usuario@email.com">
-            </ion-input>
-          </ion-item>
-
-          <ion-item lines="none" class="cyber-item">
-            <ion-icon slot="start" name="lock-closed-outline"></ion-icon>
-            <ion-input 
-              label="Contraseña" 
-              labelPlacement="stacked" 
-              [type]="showPassword ? 'text' : 'password'" 
-              [(ngModel)]="loginData.password" 
-              name="password" 
-              placeholder="........">
-            </ion-input>
-            <ion-icon 
-              slot="end" 
-              [name]="showPassword ? 'eye-off-outline' : 'eye-outline'" 
-              (click)="showPassword = !showPassword"
-              class="eye-icon">
-            </ion-icon>
-          </ion-item>
-
-          <ion-button expand="block" type="submit" class="cyber-btn">
-            INICIAR SESIÓN
-            <ion-icon slot="end" name="arrow-forward"></ion-icon>
-          </ion-button>
-
-          <div class="footer-text">
-            ¿No tienes acceso? <a routerLink="/register">Crear cuenta nueva</a>
+          <div class="input-group">
+            <label>
+              <ion-icon name="mail-outline" class="label-icon"></ion-icon> CORREO ELECTRÓNICO
+            </label>
+            <input type="email" [(ngModel)]="loginData.email" name="email" placeholder="usuario@email.com" class="dark-input">
           </div>
 
+          <div class="input-group">
+            <label>
+              <ion-icon name="lock-closed-outline" class="label-icon"></ion-icon> CONTRASEÑA
+            </label>
+            <div class="password-wrapper">
+              <input [type]="showPassword ? 'text' : 'password'" [(ngModel)]="loginData.password" name="password" placeholder="........" class="dark-input">
+              <ion-icon [name]="showPassword ? 'eye-off-outline' : 'eye-outline'" class="eye-icon" (click)="showPassword = !showPassword"></ion-icon>
+            </div>
+          </div>
+
+          <button class="btn-join" type="submit">
+            ACCEDER AL SISTEMA <ion-icon name="arrow-forward-outline"></ion-icon>
+          </button>
+
+          <div class="card-footer">
+            ¿No tienes acceso? <a routerLink="/register">Crear cuenta nueva</a>
+          </div>
+        
         </form>
+
       </div>
     </div>
-
   </div>
 </ion-content>

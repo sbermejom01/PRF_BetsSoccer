@@ -1,159 +1,235 @@
-/* --- LAYOUT GENERAL (Flexbox Seguro) --- */
-ion-content {
-  --background: #060910;
+/* --- FONDO GENERAL --- */
+.cyber-bg {
+  /* Ruta con barra, igual que Shinobi */
+  --background: url('/assets/cyborg-eye-bg.png') no-repeat center center / cover;
+  background: transparent;
 }
 
-.split-pane {
-  display: flex;
-  width: 100%;
-  height: 100vh;
-  min-height: 600px;
-  background-color: #060910;
-}
-
-/* --- IZQUIERDA --- */
-.left-side {
-  width: 60%;
-  position: relative;
-  background: url('/assets/cyborg-eye-bg.png') no-repeat center center / cover;
-  display: flex;
-  align-items: center;
-  padding-left: 5%;
-}
-
-.left-side::after {
-  content: '';
+/* Overlay para oscurecer el fondo */
+.overlay {
   position: absolute;
-  inset: 0;
-  background: linear-gradient(to right, rgba(6,9,16,0.9), rgba(6,9,16,0.2));
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Gradiente azulado oscuro en vez de negro puro */
+  background: linear-gradient(to right, rgba(6, 9, 16, 0.95) 0%, rgba(6, 9, 16, 0.6) 100%);
+  z-index: 1;
+  pointer-events: none;
 }
 
-.brand-content {
+.container {
   position: relative;
-  z-index: 10;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  gap: 40px;
+}
+
+/* RESPONSIVE: En escritorio pone uno al lado del otro */
+@media (min-width: 900px) {
+  .container {
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 0 5%;
+  }
+}
+
+/* --- SECCIÓN IZQUIERDA --- */
+.left-section {
+  max-width: 500px;
   color: white;
 }
 
-.brand-content h1 {
-  font-family: 'Rajdhani', sans-serif;
-  font-size: 3.5rem;
-  font-weight: 800;
-  color: #00f0ff;
-  margin: 0;
+.logo-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
-.highlight { color: white; }
-
-.divider {
-  width: 50px;
-  height: 4px;
-  background: #2f80ed;
-  margin: 15px 0;
-}
-
-/* --- DERECHA --- */
-.right-side {
-  flex: 1; /* Ocupa el resto */
+.logo-icon {
+  background: #2f80ed; /* AZUL */
+  width: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
-  position: relative;
+  border-radius: 4px;
+  margin-right: 10px;
 }
 
-.auth-card {
-  width: 100%;
+.logo-icon ion-icon {
+  font-size: 18px;
+  color: white;
+}
+
+.logo-text {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  color: #00f0ff;
+}
+
+.main-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 800;
+  font-size: 3.5rem;
+  line-height: 0.9;
+  text-transform: uppercase;
+  margin: 0 0 20px 0;
+  text-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+}
+
+.main-title .text-cyan {
+  color: #00f0ff; /* CYAN */
+}
+
+.description {
+  color: #94a3b8;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 40px;
   max-width: 400px;
-  /* Fondo tarjeta */
-  background: rgba(15, 21, 37, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  padding: 30px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.6);
 }
 
-.logo-header {
+/* --- SECCIÓN DERECHA (CARD) --- */
+.login-card {
+  background: rgba(15, 21, 37, 0.95); /* FONDO TARJETA AZUL OSCURO */
+  border: 1px solid rgba(47, 128, 237, 0.3); /* BORDE AZUL */
+  border-radius: 12px;
+  padding: 40px;
+  width: 100%;
+  max-width: 450px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.logo-apuesteitor {
   width: 80px;
   height: 80px;
   background: url('/assets/logoApuesteitor.png') no-repeat center center / contain;
   margin: 0 auto 15px auto;
 }
 
-h2 {
-  text-align: center;
-  color: white;
-  margin-bottom: 25px;
+.card-title {
+  font-family: 'Rajdhani', sans-serif;
   font-weight: 700;
+  color: white;
+  text-transform: uppercase;
+  font-size: 2rem;
+  margin: 0;
+  text-align: center;
 }
 
-/* --- ESTILOS COMPONENTES IONIC --- */
+.card-subtitle {
+  color: #64748b;
+  font-size: 0.9rem;
+  text-align: center;
+  margin-bottom: 30px;
+}
 
-/* 1. Inputs (ion-item) */
-.cyber-item {
-  --background: #090e1a; /* Fondo interno del input */
-  --color: white; /* Color texto */
-  --border-radius: 8px;
-  --padding-start: 10px;
-  --min-height: 55px;
-  
-  border: 1px solid #1e293b;
-  border-radius: 8px;
+.input-group {
   margin-bottom: 20px;
 }
 
-/* Cuando el input tiene foco */
-.cyber-item.item-has-focus {
-  border-color: #2f80ed;
-  box-shadow: 0 0 10px rgba(47, 128, 237, 0.2);
-}
-
-/* Iconos dentro del input */
-ion-icon {
-  color: #64748b;
-  margin-right: 10px;
-}
-
-.eye-icon {
-  cursor: pointer;
-  z-index: 10; /* Asegura click en el ojo */
-}
-
-/* 2. Botón (ion-button) */
-.cyber-btn {
-  margin-top: 25px;
-  height: 50px;
+.input-group label {
+  display: flex;
+  align-items: center;
+  color: #2f80ed; /* AZUL */
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
   font-weight: 700;
   letter-spacing: 1px;
-  
-  /* Variables mágicas de Ionic */
-  --background: linear-gradient(90deg, #2563eb, #3b82f6);
-  --border-radius: 8px;
-  --color: white;
-  --box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
 }
 
-.footer-text {
-  text-align: center;
+.input-group .label-icon {
+  color: #2f80ed;
+  margin-right: 8px;
+  font-size: 16px;
+}
+
+/* INPUT HTML NATIVO (NO FALLA) */
+.dark-input {
+  width: 100%;
+  background: #090e1a; /* FONDO INPUT */
+  border: 1px solid #1e293b;
+  color: white;
+  padding: 12px 15px;
+  border-radius: 6px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.dark-input::placeholder {
+  color: #475569;
+}
+
+.dark-input:focus {
+  border-color: #00f0ff; /* CYAN AL FOCO */
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+}
+
+.password-wrapper {
+  position: relative;
+}
+
+.password-wrapper .eye-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #64748b;
+  cursor: pointer;
+  z-index: 10;
+}
+
+/* BOTÓN HTML NATIVO (NO FALLA) */
+.btn-join {
+  width: 100%;
+  background: linear-gradient(90deg, #2563eb, #3b82f6); /* DEGRADADO AZUL */
+  color: white;
+  border: none;
+  padding: 15px;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
   margin-top: 20px;
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+  transition: transform 0.2s;
+}
+
+.btn-join:active {
+  transform: scale(0.98);
+}
+
+.card-footer {
+  margin-top: 25px;
+  text-align: center;
   color: #64748b;
   font-size: 0.9rem;
 }
 
-.footer-text a {
-  color: #2f80ed;
+.card-footer a {
+  color: #00f0ff;
   text-decoration: none;
-  font-weight: 600;
+  font-weight: bold;
 }
 
-/* RESPONSIVE */
-@media (max-width: 900px) {
-  .split-pane {
-    flex-direction: column;
-  }
-  .left-side {
-    display: none;
-  }
-  .right-side {
-    width: 100%;
-  }
+.card-footer a:hover {
+  text-decoration: underline;
 }
