@@ -19,5 +19,25 @@ export const routes: Routes = [
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',
+  },  {
+    path: 'panel',
+    loadComponent: () => import('./panel/panel.page').then( m => m.PanelPage)
   },
+  {
+    path: 'clasificacion',
+    loadComponent: () => import('./clasificacion/clasificacion.page').then( m => m.ClasificacionPage)
+  },
+  {
+    path: 'ranking',
+    loadComponent: () => import('./ranking/ranking.page').then( m => m.RankingPage)
+  },
+  {
+    path: 'perfil',
+    loadComponent: () => import('./perfil/perfil.page').then( m => m.PerfilPage)
+  },
+  {
+    path: 'historial',
+    loadComponent: () => import('./historial/historial.page').then( m => m.HistorialPage)
+  },
+
 ];

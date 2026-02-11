@@ -28,7 +28,7 @@
             </div>
 
             <div class="card-content-wrapper" style="padding-top: 20px;">
-              <form (ngSubmit)="onRegister()">
+              <form>
                 
                 <div class="input-group">
                   <label>NOMBRE DE USUARIO</label>
@@ -57,7 +57,7 @@
                   </div>
                 </div>
 
-                <ion-button type="submit" class="submit-btn" [disabled]="isLoading">
+                <ion-button (click)="onRegister()" class="submit-btn" [disabled]="isLoading">
                   <span *ngIf="!isLoading">REGISTRARSE</span>
                   <span *ngIf="isLoading">PROCESANDO...</span>
                 </ion-button>
