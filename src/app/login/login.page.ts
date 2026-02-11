@@ -30,19 +30,49 @@ export class LoginPage {
     addIcons({ personOutline, lockClosedOutline, eyeOutline, eyeOffOutline, arrowForward });
   }
 
-  async onLogin() {
+  // En login.page.ts
+
+async onLogin() {
+    // 1. Feedback visual inmediato (opcional, para saber que le diste click)
+    console.log('Intentando iniciar sesión con:', this.loginData.email);
+
+    if (!this.loginData.email || !this.loginData.password) {
+      this.presentToast('Por favor, rellena todos los campos', 'warning');
+      return;
+    }
+
     this.authService.login(this.loginData).subscribe({
       next: (res) => {
+        console.log('Login exitoso', res);
+        // Mensaje de éxito
+        this.presentToast('¡Bienvenido al sistema!', 'success');
         this.router.navigate(['/home']);
       },
-      error: async (err) => {
-        const toast = await this.toastCtrl.create({
-          message: 'Credenciales inválidas o error de conexión',
-          duration: 2000,
-          color: 'danger'
-        });
-        toast.present();
+      error: (err) => {
+        console.error('Error en login', err);
+        
+        // Intentamos sacar el mensaje del backend, si no, uno genérico
+        const msg = err.error?.error || 'No se pudo conectar con el servidor';
+        this.presentToast(msg, 'danger');
       }
     });
+  }
+
+  // Función auxiliar para Toasts consistentes
+  async presentToast(message: string, color: 'success' | 'danger' | 'warning') {
+    const toast = await this.toastCtrl.create({
+      message: message,
+      duration: 3000, // Un poco más largo para leerlo bien
+      position: 'bottom', // Abajo se ve mejor en móvil
+      color: color,
+      cssClass: 'custom-toast', // Para estilos extra si quieres
+      buttons: [
+        {
+          icon: 'close',
+          role: 'cancel'
+        }
+      ]
+    });
+    await toast.present();
   }
 }
