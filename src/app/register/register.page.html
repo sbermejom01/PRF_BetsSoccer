@@ -1,0 +1,75 @@
+<ion-content [fullscreen]="true" class="cyber-login-bg">
+  <ion-grid class="ion-no-padding login-grid">
+    <ion-row class="full-height">
+      
+      <ion-col size="12" size-md="7" class="left-panel ion-hide-md-down">
+        <div class="brand-container">
+          <h1 class="main-title">APUEST<span class="text-white">EITOR</span></h1>
+          <h2 class="sub-title">NUEVO RECLUTA</h2>
+          
+          <div class="divider-line"></div>
+          
+          <div class="system-details">
+            <p class="description">
+              Únete a la élite. Crea tu identidad digital y accede al sistema de predicción cuántica.
+              <br><br>
+            </p>
+          </div>
+        </div>
+      </ion-col>
+
+      <ion-col size="12" size-md="5" class="right-panel">
+        <div class="login-wrapper">
+          
+          <ion-card class="cyber-card">
+            <div class="logo-apuesteitor"></div>
+            
+            <ion-card-header class="ion-text-center">
+              <ion-card-title class="form-title">Crear Cuenta</ion-card-title>
+            </ion-card-header>
+
+            <ion-card-content>
+              <form (ngSubmit)="onRegister()"> <div class="input-group">
+                  <label>NOMBRE DE USUARIO</label>
+                  <div class="input-container">
+                    <ion-icon name="person-outline"></ion-icon>
+                    <input type="text" [(ngModel)]="userData.username" name="username" placeholder="Apuestineitor09" class="native-input">
+                  </div>
+                </div>
+
+                <div class="input-group">
+                  <label>CORREO ELECTRÓNICO</label>
+                  <div class="input-container">
+                    <ion-icon name="mail-outline"></ion-icon>
+                    <input type="email" [(ngModel)]="userData.email" name="email" placeholder="usuario@apuesteitor.com" class="native-input">
+                  </div>
+                </div>
+
+                <div class="input-group">
+                  <label>CONTRASEÑA MAESTRA</label>
+                  <div class="input-container">
+                    <ion-icon name="lock-closed-outline"></ion-icon>
+                    <input [type]="showPassword ? 'text' : 'password'" [(ngModel)]="userData.password" name="password" placeholder="........" class="native-input">
+                    <ion-icon [name]="showPassword ? 'eye-off-outline' : 'eye-outline'" 
+                              class="eye-icon" 
+                              (click)="showPassword = !showPassword"></ion-icon>
+                  </div>
+                </div>
+
+                <ion-button expand="block" class="submit-btn" type="submit">
+                  REGISTRARSE
+                </ion-button>
+
+                <div class="register-link">
+                  ¿Ya tienes identidad? <a routerLink="/login">Iniciar Sesión</a>
+                </div>
+              </form>
+            </ion-card-content>
+          </ion-card>
+
+        </div>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+</ion-content>

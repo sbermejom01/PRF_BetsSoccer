@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Apuesteitor Home</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">
+        <ion-icon name="log-out-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <h1>Bienvenido al sistema</h1>
+  <p>Estás logueado. Si cierras la app y vuelves, seguirás aquí.</p>
+  
+  <ion-button expand="block" color="danger" (click)="logout()">
+    CERRAR SESIÓN
+  </ion-button>
+</ion-content>

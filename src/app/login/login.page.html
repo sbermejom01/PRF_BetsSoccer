@@ -29,35 +29,31 @@
             </ion-card-header>
 
             <ion-card-content>
-              <form>
+              <form (ngSubmit)="onLogin()">
                 <div class="input-group">
-                  <label>NOMBRE DE USUARIO</label>
-                  <div class="input-container">
+                  <label>CORREO ELECTRÓNICO</label> <div class="input-container">
                     <ion-icon name="person-outline"></ion-icon>
-                    <input type="text" placeholder="Cyborg001" class="native-input">
+                    <input type="email" [(ngModel)]="loginData.email" name="email" placeholder="usuario@email.com" class="native-input">
                   </div>
                 </div>
 
                 <div class="input-group">
-                  <div class="label-row">
-                    <label>CONTRASEÑA</label>
-                    <a href="#" class="forgot">¿Olvidaste tu contraseña?</a>
-                  </div>
-                  <div class="input-container">
-                    <ion-icon name="lock-closed-outline"></ion-icon>
-                    <input [type]="showPassword ? 'text' : 'password'" placeholder="........" class="native-input">
-                    <ion-icon [name]="showPassword ? 'eye-off-outline' : 'eye-outline'" 
-                              class="eye-icon" 
-                              (click)="showPassword = !showPassword"></ion-icon>
-                  </div>
+                    <div class="label-row">
+                        <label>CONTRASEÑA</label>
+                    </div>
+                    <div class="input-container">
+                        <ion-icon name="lock-closed-outline"></ion-icon>
+                        <input [type]="showPassword ? 'text' : 'password'" [(ngModel)]="loginData.password" name="password" placeholder="........" class="native-input">
+                        <ion-icon [name]="showPassword ? 'eye-off-outline' : 'eye-outline'" class="eye-icon" (click)="showPassword = !showPassword"></ion-icon>
+                    </div>
                 </div>
 
-                <ion-button expand="block" class="submit-btn">
+                <ion-button expand="block" class="submit-btn" type="submit">
                   INICIAR SESIÓN <ion-icon name="arrow-forward" slot="end"></ion-icon>
                 </ion-button>
 
                 <div class="register-link">
-                  ¿No tienes acceso? <a href="#">Crear cuenta nueva</a>
+                  ¿No tienes acceso? <a routerLink="/register">Crear cuenta nueva</a>
                 </div>
               </form>
             </ion-card-content>
