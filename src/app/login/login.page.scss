@@ -1,36 +1,43 @@
-/* --- CONFIGURACIÓN GLOBAL --- */
+/* --- DEFINICIÓN DE COLORES LOCALES (Para que no falle nunca) --- */
 :host {
-  --bg-dark-navy: #060910;
+  --bg-dark: #060910;
   --bg-card: #0f1525;
-  --c-accent-blue: #2f80ed;
-  --c-glow-cyan: #00f0ff;
-  --c-text-main: #ffffff;
-  --c-text-muted: #64748b;
-  --font-display: 'Rajdhani', sans-serif;
-  --font-body: 'Inter', sans-serif;
+  --accent: #2f80ed;
+  --cyan: #00f0ff;
+  --text-muted: #64748b;
+  
+  display: block;
+  background-color: var(--bg-dark); /* Fondo de seguridad */
+}
+
+/* Fondo general */
+.cyber-login-bg {
+  --background: #060910 url('/assets/cyborg-eye-bg.png') no-repeat center center / cover;
 }
 
 .full-height {
   height: 100vh;
-  min-height: 600px;
+  min-height: 700px;
 }
 
-/* --- PANEL IZQUIERDO (IMAGEN OJO) --- */
+/* --- PANEL IZQUIERDO --- */
 .left-panel {
   position: relative;
-  background: url('/assets/cyborg-eye-bg.png') no-repeat center center;
-  background-size: cover;
+  /* TU RUTA CON BARRA, usando la técnica Shinobi */
+  background: url('/assets/cyborg-eye-bg.png') no-repeat center center / cover;
   display: flex;
   align-items: center;
   padding-left: 6%;
   overflow: hidden;
+  height: 100%; /* Asegura altura */
 }
 
+/* Overlay para oscurecer (Igual que Shinobi) */
 .left-panel::after {
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0) 100%);
+  background: linear-gradient(to right, rgba(6, 9, 16, 0.9) 0%, rgba(6, 9, 16, 0.4) 50%, rgba(6, 9, 16, 0.1) 100%);
   z-index: 1;
 }
 
@@ -41,10 +48,10 @@
 }
 
 .main-title {
-  font-family: var(--font-display);
+  font-family: 'Rajdhani', sans-serif;
   font-weight: 800;
   font-size: 3.8rem;
-  color: var(--c-glow-cyan);
+  color: #00f0ff; /* Color directo */
   margin: 0;
   line-height: 1;
   text-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
@@ -56,7 +63,7 @@
 }
 
 .sub-title {
-  font-family: var(--font-display);
+  font-family: 'Rajdhani', sans-serif;
   font-size: 1rem;
   letter-spacing: 6px;
   color: #3b82f6;
@@ -79,26 +86,25 @@
   max-width: 400px;
 }
 
-/* --- PANEL DERECHO (FORMULARIO) --- */
+/* --- PANEL DERECHO --- */
 .right-panel {
-  background-color: var(--bg-dark-navy);
+  background-color: #060910; /* Color directo */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   position: relative;
   padding: 40px;
+  height: 100%;
 }
 
-/* EL CORTE DIAGONAL MÁGICO */
+/* CORTE DIAGONAL */
 .right-panel::before {
   content: '';
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: -120px;
-  width: 250px;
-  background: var(--bg-dark-navy);
+  top: 0; bottom: 0; left: -100px;
+  width: 200px;
+  background: #060910; /* Color directo */
   transform: skewX(-12deg);
   z-index: 0;
   border-left: 1px solid rgba(255,255,255,0.05);
@@ -111,29 +117,28 @@
   max-width: 400px;
 }
 
-/* --- TARJETA --- */
+/* --- TARJETA (Estilo Shinobi Card) --- */
 .cyber-card {
-  background: var(--bg-card);
+  background: rgba(15, 21, 37, 0.95); /* Color directo */
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 16px;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-  overflow: visible;
   margin-bottom: 20px;
-  padding: 10px;
+  padding: 15px;
+  overflow: visible;
 }
 
 .logo-apuesteitor {
   width: 100px;
   height: 100px;
-  background: url(/assets/logoApuesteitor.png);
-  background-size: cover;
-  background-position: center;
+  /* TU RUTA CON BARRA */
+  background: url('/assets/logoApuesteitor.png') no-repeat center center / contain;
   margin: 0 auto 10px auto;
 }
 
 .form-title {
   color: white;
-  font-family: var(--font-body);
+  font-family: 'Inter', sans-serif;
   font-weight: 700;
   font-size: 1.5rem;
 }
@@ -145,7 +150,7 @@
 
 .input-group label {
   display: block;
-  font-family: var(--font-display);
+  font-family: 'Rajdhani', sans-serif;
   font-size: 0.75rem;
   color: #64748b;
   margin-bottom: 8px;
@@ -156,7 +161,7 @@
 .input-container {
   display: flex;
   align-items: center;
-  background: #090e1a;
+  background: #090e1a; /* Color directo */
   border: 1px solid #1e293b;
   border-radius: 8px;
   padding: 0 12px;
@@ -165,8 +170,8 @@
 }
 
 .input-container:focus-within {
-  border-color: var(--c-accent-blue);
-  box-shadow: 0 0 0 1px var(--c-accent-blue);
+  border-color: #2f80ed;
+  box-shadow: 0 0 0 1px #2f80ed;
 }
 
 .input-container ion-icon {
@@ -182,6 +187,7 @@
   flex: 1;
   outline: none;
   font-size: 0.95rem;
+  width: 100%;
 }
 
 .label-row {
@@ -217,7 +223,7 @@
   text-align: center;
   margin-top: 20px;
   font-size: 0.9rem;
-  color: var(--c-text-muted);
+  color: #64748b;
 }
 
 .register-link a {
@@ -229,13 +235,12 @@
 /* --- RESPONSIVE --- */
 @media (max-width: 991px) {
   .right-panel::before {
-    transform: skewX(0);
-    left: 0;
-    width: 100%;
     display: none;
   }
-  
   .right-panel {
-    background: rgba(6, 9, 16, 0.95);
+    background: rgba(6, 9, 16, 0.98);
+  }
+  .left-panel {
+    display: none;
   }
 }
