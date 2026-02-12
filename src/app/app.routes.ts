@@ -19,7 +19,8 @@ export const routes: Routes = [
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',
-  },  {
+  },
+  {
     path: 'panel',
     loadComponent: () => import('./panel/panel.page').then( m => m.PanelPage)
   },
@@ -38,6 +39,16 @@ export const routes: Routes = [
   {
     path: 'historial',
     loadComponent: () => import('./historial/historial.page').then( m => m.HistorialPage)
+  },
+  {
+    path: 'partido/:id',
+    loadComponent: () => import('./detalle-partido/detalle-partido.page').then( m => m.DetallePartidoPage),
+    canActivate: [authGuard]
+  },
+  {
+    path: 'equipo/:name',
+    loadComponent: () => import('./detalle-equipo/detalle-equipo.page').then( m => m.DetalleEquipoPage),
+    canActivate: [authGuard]
   },
 
 ];

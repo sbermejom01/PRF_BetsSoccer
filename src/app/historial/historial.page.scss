@@ -1,0 +1,32 @@
+:host { display: block; padding: 20px; }
+
+.title { color: white; font-family: 'Rajdhani'; font-weight: 800; text-align: center; margin-bottom: 30px; }
+
+.history-list { max-width: 600px; margin: 0 auto; }
+
+.history-item {
+  background: rgba(15, 21, 37, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.match-info { display: flex; flex-direction: column; }
+.teams { color: white; font-weight: 700; font-size: 1rem; }
+.date { color: #64748b; font-size: 0.7rem; }
+
+.bet-info { text-align: right; display: flex; flex-direction: column; align-items: flex-end; }
+.prediction { color: #94a3b8; font-size: 0.9rem; }
+
+.status { font-size: 0.7rem; padding: 2px 8px; border-radius: 4px; margin-top: 5px; font-weight: 700; }
+.status.win { color: #34d399; border: 1px solid #34d399; }
+.status.loss { color: #ef4444; border: 1px solid #ef4444; }
+.status.pending { color: #fbbf24; border: 1px solid #fbbf24; }
+
+.points-earned { color: white; font-weight: 800; font-family: 'Rajdhani'; margin-left: 20px; }
+
+.empty-state { text-align: center; color: #64748b; margin-top: 50px; }

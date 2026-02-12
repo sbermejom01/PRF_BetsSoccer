@@ -1,13 +1,30 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>historial</ion-title>
-  </ion-toolbar>
-</ion-header>
+<div class="history-container">
+  <h2 class="title">HISTORIAL DE OPERACIONES</h2>
+  
+  <div class="history-list">
+    <div class="history-item" *ngFor="let bet of bets">
+      <div class="match-info">
+        <span class="teams" *ngIf="bet.match">{{ bet.match.home }} vs {{ bet.match.away }}</span>
+        <span class="date">ID: #{{ bet.id }}</span>
+      </div>
+      
+      <div class="bet-info">
+        <span class="prediction">Predicción: {{ bet.homeScore }} - {{ bet.awayScore }}</span>
+        <span class="status" 
+              [class.win]="bet.status === 'win'" 
+              [class.loss]="bet.status === 'loss'" 
+              [class.pending]="bet.status === 'pending'">
+          {{ bet.status | uppercase }}
+        </span>
+      </div>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">historial</ion-title>
-    </ion-toolbar>
-  </ion-header>
-</ion-content>
+      <div class="points-earned" *ngIf="bet.status !== 'pending'">
+        {{ bet.pointsEarned > 0 ? '+' : '' }}{{ bet.pointsEarned }} CR
+      </div>
+    </div>
+
+    <div class="empty-state" *ngIf="bets.length === 0">
+      No hay operaciones registradas.
+    </div>
+  </div>
+</div>

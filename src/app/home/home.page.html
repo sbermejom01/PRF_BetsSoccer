@@ -1,19 +1,67 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Apuesteitor Home</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="logout()">
-        <ion-icon name="log-out-outline" slot="icon-only"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content class="ion-padding">
-  <h1>Bienvenido al sistema</h1>
-  <p>Estás logueado. Si cierras la app y vuelves, seguirás aquí.</p>
+<ion-content [fullscreen]="true" class="cyber-bg">
   
-  <ion-button expand="block" color="danger" (click)="logout()">
-    CERRAR SESIÓN
-  </ion-button>
+  <div class="top-bar-container">
+    <div class="diagonal-bar">
+      
+      <div class="brand-box">
+        <div class="logo-mini"></div>
+        <div class="brand-info">
+          <h1>APUEST<span class="highlight">EITOR</span></h1>
+        </div>
+      </div>
+
+      <div class="user-data">
+        <div class="data-text">
+          <span class="username">{{ user.username }}</span>
+          <span class="points">{{ user.points | number }} CR</span>
+        </div>
+        <div class="avatar-hexagon">
+          <img [src]="user.avatar || 'assets/default_avatar.png'" alt="User">
+        </div>
+      </div>
+      
+    </div>
+
+    <button class="logout-btn" (click)="logout()">
+      <ion-icon name="log-out-outline"></ion-icon>
+    </button>
+  </div>
+
+  <div class="nav-dock">
+    <button class="nav-item" [class.active]="currentSection === 'panel'" (click)="setSection('panel')">
+      <ion-icon name="grid-outline"></ion-icon>
+      <span>PANEL</span>
+    </button>
+    <button class="nav-item" [class.active]="currentSection === 'clasificacion'" (click)="setSection('clasificacion')">
+      <ion-icon name="trophy-outline"></ion-icon>
+      <span>LIGA</span>
+    </button>
+    <button class="nav-item" [class.active]="currentSection === 'ranking'" (click)="setSection('ranking')">
+      <ion-icon name="podium-outline"></ion-icon>
+      <span>RANKING</span>
+    </button>
+    <button class="nav-item" [class.active]="currentSection === 'perfil'" (click)="setSection('perfil')">
+      <ion-icon name="person-outline"></ion-icon>
+      <span>PERFIL</span>
+    </button>
+    <button class="nav-item" [class.active]="currentSection === 'historial'" (click)="setSection('historial')">
+      <ion-icon name="time-outline"></ion-icon>
+      <span>HISTORIAL</span>
+    </button>
+  </div>
+
+  <div class="main-viewport" [ngSwitch]="currentSection">
+    
+    <app-panel *ngSwitchCase="'panel'" class="fade-in"></app-panel>
+
+    <app-clasificacion *ngSwitchCase="'clasificacion'" class="fade-in"></app-clasificacion>
+
+    <app-ranking *ngSwitchCase="'ranking'" class="fade-in"></app-ranking>
+
+    <app-perfil *ngSwitchCase="'perfil'" class="fade-in"></app-perfil>
+
+    <app-historial *ngSwitchCase="'historial'" class="fade-in"></app-historial>
+
+  </div>
+
 </ion-content>

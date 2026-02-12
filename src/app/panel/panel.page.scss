@@ -1,0 +1,205 @@
+:host { display: block; width: 100%; }
+
+.panel-container { padding: 10px; padding-bottom: 80px; }
+
+/* KPIS */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.kpi-card {
+  background: rgba(15, 21, 37, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 15px;
+  position: relative;
+  overflow: hidden;
+}
+
+.kpi-label { font-size: 0.7rem; color: #64748b; font-weight: 700; letter-spacing: 1px; }
+.kpi-value { font-size: 1.5rem; font-weight: 800; color: white; font-family: 'Rajdhani'; }
+.unit { font-size: 0.8rem; color: #94a3b8; }
+.text-cyan { color: #00f0ff; }
+
+.bg-icon {
+  position: absolute; right: -10px; bottom: -10px;
+  font-size: 4rem; color: rgba(255, 255, 255, 0.03); transform: rotate(-15deg);
+}
+
+.active-pulse {
+  border-color: rgba(239, 68, 68, 0.5);
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.1);
+}
+
+/* SEGMENTOS */
+.segment-container { margin-bottom: 20px; }
+.cyber-segment {
+  background: #090e1a;
+  border-radius: 8px;
+  padding: 4px;
+  border: 1px solid #1e293b;
+  
+  ion-segment-button {
+    --indicator-color: #2f80ed;
+    --color: #64748b;
+    --color-checked: white;
+    min-height: 36px;
+    
+    ion-label {
+      font-family: 'Rajdhani';
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+  }
+}
+
+.badge-count {
+  background: #ef4444; color: white; font-size: 0.7rem;
+  padding: 1px 5px; border-radius: 4px; margin-left: 5px;
+}
+/* ... (Estilos de KPIs y Segment se mantienen igual) ... */
+
+/* CARTAS DE PARTIDO - NUEVO ESTILO */
+.match-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+  gap: 20px;
+}
+
+.match-card {
+  /* Fondo base oscuro, borde sutil */
+  background: rgba(13, 17, 29, 0.95); 
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px; /* Bordes más redondeados como en la foto */
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  transition: transform 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* Estilo LIVE */
+.live-card {
+  /* Borde rojo neón */
+  border-color: rgba(239, 68, 68, 0.6);
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.1);
+  background: linear-gradient(145deg, rgba(20, 10, 10, 0.95), rgba(13, 17, 29, 0.95));
+}
+
+/* Cabecera compacta */
+.card-header-compact {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+/* Scoreboard "Caja" Central */
+.scoreboard-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* Fondo interior más claro para destacar */
+  background: rgb(255, 255, 255); 
+  border-radius: 12px;
+  padding: 20px 15px;
+  cursor: pointer;
+}
+
+.team-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  text-align: center;
+}
+
+.team-logo-large {
+  width: 60px; height: 60px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 8px rgba(255,255,255,0.1));
+}
+
+.team-name-bold {
+  color: rgb(0, 0, 0);
+  font-weight: 800;
+  font-size: 0.9rem;
+  line-height: 1.2;
+  /* Truncar nombres largos */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.score-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 15px;
+}
+
+.big-score {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: white;
+  font-family: 'Rajdhani', sans-serif;
+  text-shadow: 0 0 15px rgba(255,255,255,0.3);
+  line-height: 1;
+}
+.vs-text { color: #64748b; font-size: 1.8rem; }
+
+.match-date {
+  color: #64748b; font-size: 0.8rem; margin-top: 5px; font-weight: 600;
+}
+
+/* Último Gol */
+.last-goal-event {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 8px 12px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: #cbd5e1;
+  ion-icon { color: #2f80ed; }
+  strong { color: white; }
+}
+
+/* Botón Principal Grande */
+.main-action-btn {
+  margin-top: 5px;
+  height: 45px;
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+}
+
+/* Estilos específicos para Finalizados */
+.finished-card { opacity: 0.9; border-color: #334155; }
+.compact { padding: 15px; }
+.team-logo-medium { width: 45px; height: 45px; filter: grayscale(0.3); }
+.finished-score { color: #94a3b8; text-shadow: none; }
+.status-finished { color: #94a3b8; }
+.btn-text { margin-top: 5px; padding: 10px; }
+
+/* ... (Resto de estilos, empty-state, fade-in se mantienen) ... */
+.empty-state {
+  text-align: center; color: #64748b; margin-top: 40px;
+  ion-icon { font-size: 3rem; margin-bottom: 10px; opacity: 0.5; }
+  p { font-size: 0.9rem; }
+}
+
+.fade-in { animation: fadeIn 0.3s ease-out; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }

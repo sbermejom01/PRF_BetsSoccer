@@ -1,13 +1,44 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>clasificacion</ion-title>
-  </ion-toolbar>
-</ion-header>
+<div class="container">
+  <div class="cyber-panel">
+    <div class="panel-header">
+      <h2>NEON LEAGUE 2077</h2>
+      <div class="tabs">
+        <span class="tab active">GENERAL</span>
+      </div>
+    </div>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">clasificacion</ion-title>
-    </ion-toolbar>
-  </ion-header>
-</ion-content>
+    <div class="table-container">
+      <table class="cyber-table">
+        <thead>
+          <tr>
+            <th>POS</th>
+            <th class="text-left">CLUB</th>
+            <th>PJ</th>
+            <th>W</th>
+            <th>D</th>
+            <th>L</th>
+            <th class="pts">PTS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let team of standings; let i = index" [class.top-tier]="i < 4">
+            <td>
+              <div class="rank-box" [ngClass]="{'gold': i===0, 'silver': i===1, 'bronze': i===2}">
+                {{ i + 1 }}
+              </div>
+            </td>
+            <td class="team-cell">
+              <img [src]="team.badge || 'assets/default-shield.png'" class="mini-logo-img">
+              {{ team.teamName }}
+            </td>
+            <td>{{ team.played }}</td>
+            <td>{{ team.won }}</td>
+            <td>{{ team.drawn }}</td>
+            <td>{{ team.lost }}</td>
+            <td class="points">{{ team.points }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

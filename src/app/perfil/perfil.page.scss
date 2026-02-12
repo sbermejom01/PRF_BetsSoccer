@@ -1,0 +1,48 @@
+/* Usa los mismos estilos que el login para inputs y botones */
+.profile-container {
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.cyber-card {
+  width: 100%;
+  max-width: 500px;
+  background: rgba(15, 21, 37, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 30px;
+}
+
+h2 { color: white; text-align: center; font-family: 'Rajdhani'; font-weight: 800; margin-bottom: 30px; }
+
+.avatar-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.big-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid #2f80ed;
+  margin-bottom: 15px;
+}
+
+.change-avatar-btn {
+  background: transparent;
+  border: 1px solid #2f80ed;
+  color: #2f80ed;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Reutilizar estilos de inputs y botones del login */
+.input-group label { display: block; color: #64748b; font-size: 0.8rem; font-weight: 700; margin-bottom: 5px; }
+.native-input { width: 100%; background: #090e1a; border: 1px solid #1e293b; color: white; padding: 12px; border-radius: 8px; margin-bottom: 20px; }
+.save-btn { width: 100%; background: #2f80ed; color: white; border: none; padding: 15px; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 10px; }

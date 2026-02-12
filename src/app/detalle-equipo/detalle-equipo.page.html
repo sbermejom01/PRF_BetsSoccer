@@ -1,0 +1,32 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="cyber-toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home" icon="chevron-back" text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title class="rajdhani-title">BASE DE DATOS EQUIPO</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="cyber-bg">
+  
+  <div class="team-header">
+    <div class="badge-glow">
+      <img [src]="teamBadge" class="big-team-badge">
+    </div>
+    <h1>{{ teamName }}</h1>
+    <p class="subtitle">PLANTILLA OFICIAL 2077</p>
+  </div>
+
+  <div class="squad-grid">
+    <div class="player-card" *ngFor="let player of players">
+      <div class="avatar-box">
+        <img [src]="player.avatar_url || 'assets/default-avatar.png'">
+      </div>
+      <div class="info">
+        <span class="p-name">{{ player.name }}</span>
+        <span class="p-stats">Goles: {{ player.goals }}</span>
+      </div>
+    </div>
+  </div>
+
+</ion-content>

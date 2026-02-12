@@ -1,0 +1,86 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="cyber-toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home" icon="chevron-back" text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title class="rajdhani-title">SALA DE OPERACIONES</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="cyber-bg">
+  <div class="split-layout" *ngIf="match">
+    
+    <div class="left-column">
+      
+      <div class="match-display">
+        <div class="status-bar">
+          <span class="status" [class.live]="match.status === 'live'">
+            {{ match.status === 'live' ? 'EN VIVO' : (match.status === 'finished' ? 'FINALIZADO' : 'PENDIENTE') }}
+          </span>
+          <span class="time">{{ match.time || "00'" }}</span>
+        </div>
+
+        <div class="teams-container">
+          <div class="team-col">
+            <img [src]="match.homeBadge" class="big-shield">
+            <h2>{{ match.home }}</h2>
+          </div>
+          
+          <div class="score-col">
+            <span class="big-score">{{ match.homeScore }} - {{ match.awayScore }}</span>
+          </div>
+
+          <div class="team-col">
+            <img [src]="match.awayBadge" class="big-shield">
+            <h2>{{ match.away }}</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="events-panel" *ngIf="match.events && match.events.length > 0">
+        <h3><ion-icon name="football"></ion-icon> TIMELINE</h3>
+        <div class="event-item" *ngFor="let ev of match.events">
+          <span class="minute">{{ ev.minute }}'</span>
+          <span class="desc">{{ ev.description }}</span>
+        </div>
+      </div>
+
+      <div class="bet-panel" *ngIf="match.status !== 'finished'">
+        <h3>REALIZAR PREDICCIÓN</h3>
+        <div class="bet-inputs">
+          <div class="input-wrap">
+            <label>{{ match.home }}</label>
+            <input type="number" [(ngModel)]="betData.homeScore" class="cyber-input">
+          </div>
+          <span class="divider">-</span>
+          <div class="input-wrap">
+            <label>{{ match.away }}</label>
+            <input type="number" [(ngModel)]="betData.awayScore" class="cyber-input">
+          </div>
+        </div>
+        <button class="bet-btn" (click)="placeBet()">CONFIRMAR APUESTA (100 CR)</button>
+      </div>
+
+    </div>
+
+    <div class="right-column chat-section">
+      <div class="chat-header">
+        <ion-icon name="chatbubbles-outline"></ion-icon> CHAT DE GRADA
+      </div>
+      
+      <div class="messages-list">
+        <div class="msg" *ngFor="let msg of messages" [class.me]="msg.username === currentUser.username">
+          <span class="sender">{{ msg.username }}</span>
+          <div class="bubble">{{ msg.text }}</div>
+          <span class="msg-time">{{ msg.time }}</span>
+        </div>
+      </div>
+
+      <div class="chat-input-area">
+        <input type="text" placeholder="Comenta la jugada..." [(ngModel)]="newMessage" (keyup.enter)="sendMessage()">
+        <button (click)="sendMessage()"><ion-icon name="send"></ion-icon></button>
+      </div>
+    </div>
+
+  </div>
+</ion-content>

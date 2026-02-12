@@ -1,13 +1,133 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>panel</ion-title>
-  </ion-toolbar>
-</ion-header>
+<div class="panel-container">
+  
+  <div class="kpi-grid">
+    <div class="kpi-card active-pulse">
+      <div class="kpi-label">EN JUEGO</div>
+      <div class="kpi-value text-cyan">{{ liveMatches.length }} <span class="unit">MATCHES</span></div>
+      <ion-icon name="flame" class="bg-icon"></ion-icon>
+    </div>
+    
+    <div class="kpi-card">
+      <div class="kpi-label">MIS CRÉDITOS</div>
+      <div class="kpi-value">{{ totalCredits | number }} <span class="unit">CR</span></div>
+      <ion-icon name="wallet" class="bg-icon"></ion-icon>
+    </div>
+  </div>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">panel</ion-title>
-    </ion-toolbar>
-  </ion-header>
-</ion-content>
+  <div class="segment-container">
+    <ion-segment [(ngModel)]="selectedSegment" mode="ios" class="cyber-segment">
+      <ion-segment-button value="live">
+        <ion-label>EN VIVO <span class="badge-count" *ngIf="liveMatches.length">{{liveMatches.length}}</span></ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="upcoming">
+        <ion-label>PRÓXIMOS</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="finished">
+        <ion-label>FINALIZADOS</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div class="match-list fade-in" *ngIf="selectedSegment === 'live'">
+  <div class="match-card live-card" *ngFor="let match of liveMatches">
+    
+    <div class="card-header-compact">
+      <span class="status-live">
+        <div class="live-dot"></div> {{ match.time || "EN JUEGO" }}
+      </span>
+      <span class="league-label">JORNADA {{ match.jornada }}</span>
+    </div>
+
+    <div class="scoreboard-box" (click)="goToMatchDetail(match.id)">
+      <div class="team-column">
+        <img [src]="match.homeBadge" class="team-logo-large">
+        <span class="team-name-bold">{{ match.home }}</span>
+      </div>
+      
+      <div class="score-column">
+        <span class="big-score">{{ match.homeScore }}-{{ match.awayScore }}</span>
+        <span class="match-date">{{ match.date | date:'dd/MM HH:mm' }}</span>
+      </div>
+
+      <div class="team-column">
+        <img [src]="match.awayBadge" class="team-logo-large">
+        <span class="team-name-bold">{{ match.away }}</span>
+      </div>
+    </div>
+
+    <div class="last-goal-event" *ngIf="match.lastGoalPlayer">
+      <ion-icon name="football-outline"></ion-icon>
+      <span>Último gol: <strong>{{ match.lastGoalPlayer }}</strong> ({{ match.lastGoalTime }}')</span>
+    </div>
+
+    <button class="cyber-btn full-width main-action-btn" (click)="goToMatchDetail(match.id)">
+      VER DETALLES Y APOSTAR
+    </button>
+
+  </div>
+  </div>
+
+<div class="match-list fade-in" *ngIf="selectedSegment === 'upcoming'">
+  <div class="match-card upcoming-card" *ngFor="let match of upcomingMatches">
+    
+    <div class="card-header-compact">
+      <span class="status-pending">
+        <ion-icon name="calendar-outline"></ion-icon> PRÓXIMAMENTE
+      </span>
+      <span class="league-label">JORNADA {{ match.jornada }}</span>
+    </div>
+
+    <div class="scoreboard-box" (click)="goToMatchDetail(match.id)">
+      <div class="team-column">
+        <img [src]="match.homeBadge" class="team-logo-large">
+        <span class="team-name-bold">{{ match.home }}</span>
+      </div>
+      
+      <div class="score-column">
+        <span class="big-score vs-text">VS</span>
+        <span class="match-date">{{ match.date | date:'dd/MM HH:mm' }}</span>
+      </div>
+
+      <div class="team-column">
+        <img [src]="match.awayBadge" class="team-logo-large">
+        <span class="team-name-bold">{{ match.away }}</span>
+      </div>
+    </div>
+
+    <button class="cyber-btn full-width main-action-btn outline" (click)="goToMatchDetail(match.id)">
+      PREVIA DEL PARTIDO
+    </button>
+
+  </div>
+</div>
+
+<div class="match-list fade-in" *ngIf="selectedSegment === 'finished'">
+  <div class="match-card finished-card" *ngFor="let match of finishedMatches">
+    
+    <div class="card-header-compact">
+      <span class="status-finished">FINALIZADO</span>
+      <span class="league-label">JORNADA {{ match.jornada }}</span>
+    </div>
+
+    <div class="scoreboard-box compact" (click)="goToMatchDetail(match.id)">
+      <div class="team-column">
+        <img [src]="match.homeBadge" class="team-logo-medium">
+        <span class="team-name-bold">{{ match.home }}</span>
+      </div>
+      
+      <div class="score-column">
+        <span class="big-score finished-score">{{ match.homeScore }}-{{ match.awayScore }}</span>
+        <span class="match-date">{{ match.date | date:'dd/MM' }}</span>
+      </div>
+
+      <div class="team-column">
+        <img [src]="match.awayBadge" class="team-logo-medium">
+        <span class="team-name-bold">{{ match.away }}</span>
+      </div>
+    </div>
+    
+    <button class="btn-text full-width" (click)="goToMatchDetail(match.id)">Ver Resumen</button>
+  </div>
+</div>
+
+</div>
