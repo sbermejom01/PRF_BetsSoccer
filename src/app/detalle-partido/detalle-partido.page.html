@@ -1,84 +1,117 @@
 <ion-header class="ion-no-border">
   <ion-toolbar class="cyber-toolbar">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/home" icon="chevron-back" text=""></ion-back-button>
+      <ion-back-button defaultHref="/home" icon="chevron-back" text="VOLVER"></ion-back-button>
     </ion-buttons>
     <ion-title class="rajdhani-title">SALA DE OPERACIONES</ion-title>
+    
+    <div slot="end" class="user-chip">
+      <ion-icon name="person-circle-outline"></ion-icon>
+      <span>{{ currentUser.username }}</span>
+    </div>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="cyber-bg">
-  <div class="split-layout" *ngIf="match">
+  <div class="main-layout" *ngIf="match">
     
-    <div class="left-column">
+    <div class="content-area">
       
-      <div class="match-display">
-        <div class="status-bar">
-          <span class="status" [class.live]="match.status === 'live'">
-            {{ match.status === 'live' ? 'EN VIVO' : (match.status === 'finished' ? 'FINALIZADO' : 'PENDIENTE') }}
-          </span>
-          <span class="time">{{ match.time || "00'" }}</span>
-        </div>
-
-        <div class="teams-container">
-          <div class="team-col">
-            <img [src]="match.homeBadge" class="big-shield">
-            <h2>{{ match.home }}</h2>
-          </div>
-          
-          <div class="score-col">
-            <span class="big-score">{{ match.homeScore }} - {{ match.awayScore }}</span>
+      <div class="score-card">
+        <div class="match-header">
+          <div class="team-block">
+            <div class="badge-container">
+              <img [src]="match.homeBadge" class="team-badge">
+            </div>
+            <h2 class="team-name">{{ match.home }}</h2>
+            <span class="tag-home">LOCAL</span>
           </div>
 
-          <div class="team-col">
-            <img [src]="match.awayBadge" class="big-shield">
-            <h2>{{ match.away }}</h2>
+          <div class="score-block">
+            <div class="big-score">
+              <span>{{ match.homeScore }}</span>
+              <span class="dash">-</span>
+              <span>{{ match.awayScore }}</span>
+            </div>
+            <div class="match-meta">
+              <span class="status-pill" [class.live]="match.status === 'live'">
+                {{ match.status === 'live' ? 'EN VIVO ' + (match.time || "00'") : (match.status === 'finished' ? 'FINALIZADO' : 'PENDIENTE') }}
+              </span>
+              <span class="date">{{ match.date | date:'dd/MM/yyyy HH:mm' }}</span>
+            </div>
+          </div>
+
+          <div class="team-block">
+            <div class="badge-container">
+              <img [src]="match.awayBadge" class="team-badge">
+            </div>
+            <h2 class="team-name">{{ match.away }}</h2>
+            <span class="tag-away">VISITANTE</span>
           </div>
         </div>
       </div>
 
-      <div class="events-panel" *ngIf="match.events && match.events.length > 0">
-        <h3><ion-icon name="football"></ion-icon> TIMELINE</h3>
-        <div class="event-item" *ngFor="let ev of match.events">
-          <span class="minute">{{ ev.minute }}'</span>
-          <span class="desc">{{ ev.description }}</span>
+      <div class="events-card">
+        <div class="card-title">
+          <h3><ion-icon name="list-outline"></ion-icon> Minuto a Minuto</h3>
+        </div>
+
+        <div class="timeline">
+          <div class="empty-events" *ngIf="!match.events || match.events.length === 0">
+            <p>El partido está tranquilo... de momento.</p>
+          </div>
+
+          <div class="event-row" *ngFor="let ev of match.events">
+            <div class="ev-time">{{ ev.minute }}'</div>
+            <div class="ev-icon">
+              <ion-icon [name]="ev.description.includes('Gol') ? 'football' : 'alert-circle'" 
+                        [class.icon-goal]="ev.description.includes('Gol')"></ion-icon>
+            </div>
+            <div class="ev-desc">
+              <span class="action-text">{{ ev.description }}</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="bet-panel" *ngIf="match.status !== 'finished'">
-        <h3>REALIZAR PREDICCIÓN</h3>
-        <div class="bet-inputs">
-          <div class="input-wrap">
+      <div class="betting-card" *ngIf="match.status !== 'finished'">
+        <div class="card-title"><h3>Realizar Predicción</h3></div>
+        <div class="bet-controls">
+          <div class="control-group">
             <label>{{ match.home }}</label>
-            <input type="number" [(ngModel)]="betData.homeScore" class="cyber-input">
+            <input type="number" [(ngModel)]="betData.homeScore" class="score-input">
           </div>
-          <span class="divider">-</span>
-          <div class="input-wrap">
+          <span class="vs">vs</span>
+          <div class="control-group">
             <label>{{ match.away }}</label>
-            <input type="number" [(ngModel)]="betData.awayScore" class="cyber-input">
+            <input type="number" [(ngModel)]="betData.awayScore" class="score-input">
           </div>
         </div>
-        <button class="bet-btn" (click)="placeBet()">CONFIRMAR APUESTA (100 CR)</button>
+        <button class="place-bet-btn" (click)="placeBet()">
+          CONFIRMAR APUESTA (100 CR)
+        </button>
       </div>
 
     </div>
 
-    <div class="right-column chat-section">
-      <div class="chat-header">
-        <ion-icon name="chatbubbles-outline"></ion-icon> CHAT DE GRADA
-      </div>
-      
-      <div class="messages-list">
-        <div class="msg" *ngFor="let msg of messages" [class.me]="msg.username === currentUser.username">
-          <span class="sender">{{ msg.username }}</span>
-          <div class="bubble">{{ msg.text }}</div>
-          <span class="msg-time">{{ msg.time }}</span>
+    <div class="side-panel">
+      <div class="chat-container">
+        <div class="chat-header-box">
+          <ion-icon name="chatbubbles-outline"></ion-icon> COMENTARIOS EN VIVO
         </div>
-      </div>
-
-      <div class="chat-input-area">
-        <input type="text" placeholder="Comenta la jugada..." [(ngModel)]="newMessage" (keyup.enter)="sendMessage()">
-        <button (click)="sendMessage()"><ion-icon name="send"></ion-icon></button>
+        <div class="messages-scroll">
+          <div class="msg-bubble" *ngFor="let msg of messages" [class.own]="msg.username === currentUser.username">
+            <div class="msg-meta">
+              <span class="msg-user">{{ msg.username }}</span>
+              <span class="msg-time">{{ msg.time }}</span>
+            </div>
+            <div class="msg-text">{{ msg.text }}</div>
+          </div>
+        </div>
+        <div class="chat-input-box">
+          <input type="text" placeholder="Escribe un mensaje..." [(ngModel)]="newMessage" (keyup.enter)="sendMessage()">
+          <button (click)="sendMessage()"><ion-icon name="send"></ion-icon></button>
+        </div>
       </div>
     </div>
 

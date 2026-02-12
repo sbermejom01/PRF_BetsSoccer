@@ -88,6 +88,11 @@ export class PanelPage implements OnInit, OnDestroy {
     this.router.navigate(['/partido', matchId]);
   }
 
+  goToTeamDetail(teamName: string, event: Event) {
+    event.stopPropagation(); // Evita que se abra el detalle del partido
+    this.router.navigate(['/equipo', teamName]);
+  }
+
   quickBet(match: any, type: '1' | 'X' | '2') {
     this.goToMatchDetail(match.id);
   }

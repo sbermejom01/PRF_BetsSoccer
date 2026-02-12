@@ -60,7 +60,6 @@
   background: #ef4444; color: white; font-size: 0.7rem;
   padding: 1px 5px; border-radius: 4px; margin-left: 5px;
 }
-/* ... (Estilos de KPIs y Segment se mantienen igual) ... */
 
 /* CARTAS DE PARTIDO - NUEVO ESTILO */
 .match-list {
@@ -110,7 +109,7 @@
   justify-content: space-between;
   align-items: center;
   /* Fondo interior más claro para destacar */
-  background: rgb(255, 255, 255); 
+  background: rgba(255, 255, 255, 0.03); 
   border-radius: 12px;
   padding: 20px 15px;
   cursor: pointer;
@@ -123,16 +122,49 @@
   gap: 10px;
   flex: 1;
   text-align: center;
+  cursor: pointer; /* Indica que es clicable */
+}
+
+/* Wrapper para el logo circular */
+.logo-wrapper {
+  width: 65px; 
+  height: 65px;
+  background: white; /* Fondo blanco detrás del escudo */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 2px solid #2f80ed; /* Borde neón para integrarlo */
+  box-shadow: 0 0 10px rgba(47, 128, 237, 0.3);
+  margin-bottom: 5px;
+  transition: transform 0.2s;
+}
+
+.logo-wrapper.small {
+  width: 50px;
+  height: 50px;
+}
+
+.logo-wrapper:hover {
+  transform: scale(1.1);
 }
 
 .team-logo-large {
-  width: 60px; height: 60px;
+  width: 80%; /* Ajuste para que quede bien dentro del círculo */
+  height: 80%;
   object-fit: contain;
-  filter: drop-shadow(0 0 8px rgba(255,255,255,0.1));
+}
+
+.team-logo-medium {
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+  filter: grayscale(0.3);
 }
 
 .team-name-bold {
-  color: rgb(0, 0, 0);
+  color: white;
   font-weight: 800;
   font-size: 0.9rem;
   line-height: 1.2;
@@ -189,7 +221,6 @@
 /* Estilos específicos para Finalizados */
 .finished-card { opacity: 0.9; border-color: #334155; }
 .compact { padding: 15px; }
-.team-logo-medium { width: 45px; height: 45px; filter: grayscale(0.3); }
 .finished-score { color: #94a3b8; text-shadow: none; }
 .status-finished { color: #94a3b8; }
 .btn-text { margin-top: 5px; padding: 10px; }

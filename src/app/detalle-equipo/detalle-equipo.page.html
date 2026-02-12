@@ -3,30 +3,85 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/home" icon="chevron-back" text=""></ion-back-button>
     </ion-buttons>
-    <ion-title class="rajdhani-title">BASE DE DATOS EQUIPO</ion-title>
+    <ion-title class="rajdhani-title">BASE DE DATOS: EQUIPO</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="cyber-bg">
   
-  <div class="team-header">
-    <div class="badge-glow">
-      <img [src]="teamBadge" class="big-team-badge">
-    </div>
-    <h1>{{ teamName }}</h1>
-    <p class="subtitle">PLANTILLA OFICIAL 2077</p>
-  </div>
+  <div class="content-wrapper">
 
-  <div class="squad-grid">
-    <div class="player-card" *ngFor="let player of players">
-      <div class="avatar-box">
-        <img [src]="player.avatar_url || 'assets/default-avatar.png'">
+    <div class="team-header-cyber">
+      <div class="badge-holo-container">
+        <img [src]="teamBadge" class="hologram-badge">
+        <div class="scan-line"></div>
       </div>
-      <div class="info">
-        <span class="p-name">{{ player.name }}</span>
-        <span class="p-stats">Goles: {{ player.goals }}</span>
+      
+      <div class="header-info">
+        <h1>{{ teamName }}</h1>
+        <div class="tags">
+          <span class="cyber-tag">LIGA 2077</span>
+          <span class="cyber-tag active">ACTIVO</span>
+        </div>
       </div>
     </div>
-  </div>
 
+    <div class="stats-hud">
+      
+      <div class="hud-card rank-card">
+        <div class="hud-label">RANKING</div>
+        <div class="hud-value text-gold">#{{ teamStats.rank }}</div>
+        <ion-icon name="podium" class="bg-icon"></ion-icon>
+      </div>
+
+      <div class="hud-card">
+        <div class="hud-label">PUNTOS</div>
+        <div class="hud-value text-neon">{{ teamStats.points }}</div>
+        <ion-icon name="trophy" class="bg-icon"></ion-icon>
+      </div>
+
+      <div class="hud-card record-card">
+        <div class="hud-label">RECORD (W-D-L)</div>
+        <div class="record-display">
+          <span class="win">{{ teamStats.won }}</span>
+          <span class="sep">/</span>
+          <span class="draw">{{ teamStats.drawn }}</span>
+          <span class="sep">/</span>
+          <span class="loss">{{ teamStats.lost }}</span>
+        </div>
+        <div class="goals-mini">
+          GF: {{ teamStats.gf || teamStats.goalsFor || 0 }} | 
+          GC: {{ teamStats.gc || teamStats.goalsAgainst || teamStats.ga || 0 }}
+        </div>
+        <ion-icon name="analytics" class="bg-icon"></ion-icon>
+      </div>
+
+    </div>
+
+    <div class="squad-section">
+      <div class="section-title">
+        <ion-icon name="person"></ion-icon> PLANTILLA REGISTRADA <span class="count">({{ players.length }})</span>
+      </div>
+
+      <div class="squad-grid">
+        <div class="cyber-player-card" *ngFor="let player of players">
+          <div class="player-img-box">
+            <img [src]="player.avatar_url || 'assets/default-avatar.png'">
+          </div>
+          <div class="player-data">
+            <span class="p-name">{{ player.name }}</span>
+            <div class="p-stats-row">
+              <span class="stat-label">GOLES</span>
+              <span class="stat-val">{{ player.goals }}</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="empty-state" *ngIf="players.length === 0">
+          <p>Cargando datos de jugadores...</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </ion-content>

@@ -1,32 +1,144 @@
+/* --- BASE --- */
 .cyber-toolbar { --background: #090e1a; border-bottom: 1px solid #1e293b; }
-.rajdhani-title { font-family: 'Rajdhani'; font-weight: 800; color: #00f0ff; letter-spacing: 1px; }
+.rajdhani-title { font-family: 'Rajdhani', sans-serif; font-weight: 800; color: #00f0ff; letter-spacing: 2px; }
+.cyber-bg { --background: #060910; }
 
-.team-header {
-  display: flex; flex-direction: column; align-items: center; padding: 40px 20px;
-  background: radial-gradient(circle at center, rgba(47, 128, 237, 0.1) 0%, rgba(6, 9, 16, 0) 70%);
+.content-wrapper { padding: 20px; max-width: 1200px; margin: 0 auto; }
+
+/* --- CABECERA HOLOGRAMA --- */
+.team-header-cyber {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+  background: radial-gradient(circle at center, rgba(47, 128, 237, 0.1) 0%, transparent 70%);
+  padding: 20px;
+  border-radius: 20px;
 }
 
-.big-team-badge { width: 120px; height: 120px; object-fit: contain; filter: drop-shadow(0 0 20px rgba(47, 128, 237, 0.4)); }
+.badge-holo-container {
+  width: 120px; height: 120px;
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(255, 255, 255, 0.9); /* Fondo blanco para que el escudo resalte */
+  border-radius: 50%;
+  border: 2px solid #2f80ed;
+  box-shadow: 0 0 25px rgba(47, 128, 237, 0.4);
+  margin-bottom: 15px;
+  overflow: hidden;
+}
 
-h1 { color: white; font-family: 'Rajdhani'; font-weight: 800; font-size: 2.5rem; margin: 15px 0 5px; text-transform: uppercase; text-align: center; }
-.subtitle { color: #64748b; letter-spacing: 4px; font-weight: 700; margin: 0; }
+.hologram-badge { width: 85%; height: 85%; object-fit: contain; z-index: 2; }
+
+.scan-line {
+  position: absolute; top: 0; left: 0; width: 100%; height: 5px;
+  background: rgba(0, 240, 255, 0.5);
+  animation: scan 3s infinite linear;
+  z-index: 3;
+  opacity: 0.5;
+}
+@keyframes scan { 0% { top: -10%; } 100% { top: 110%; } }
+
+.header-info { text-align: center; }
+h1 { 
+  font-family: 'Rajdhani'; font-weight: 800; color: white; font-size: 2.2rem; margin: 0; 
+  text-transform: uppercase; text-shadow: 0 0 10px rgba(255,255,255,0.2);
+}
+
+.tags { display: flex; gap: 10px; justify-content: center; margin-top: 10px; }
+.cyber-tag {
+  font-size: 0.7rem; color: #64748b; border: 1px solid #334155; padding: 2px 8px; border-radius: 4px; letter-spacing: 1px;
+}
+.cyber-tag.active { color: #00f0ff; border-color: #00f0ff; background: rgba(0, 240, 255, 0.1); }
+
+
+/* --- ESTADÍSTICAS (HUD GRID) --- */
+.stats-hud {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 15px; margin-bottom: 40px;
+}
+
+.hud-card {
+  background: rgba(15, 21, 37, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 15px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hud-label { font-size: 0.65rem; color: #64748b; font-weight: 700; letter-spacing: 1px; margin-bottom: 5px; }
+.hud-value { font-size: 2rem; font-weight: 800; font-family: 'Rajdhani'; line-height: 1; color: white; }
+
+.text-gold { color: #eab308; text-shadow: 0 0 10px rgba(234, 179, 8, 0.3); }
+.text-neon { color: #2f80ed; text-shadow: 0 0 10px rgba(47, 128, 237, 0.3); }
+
+/* Card específica para Record */
+.record-card { grid-column: span 2; @media(max-width: 350px) { grid-column: span 1; } }
+
+.record-display { font-family: 'Rajdhani'; font-weight: 800; font-size: 1.5rem; display: flex; justify-content: center; gap: 5px; color: white; }
+.win { color: #34d399; } .loss { color: #ef4444; } .draw { color: #94a3b8; } .sep { color: #334155; }
+
+.goals-mini { font-size: 0.75rem; color: #94a3b8; margin-top: 5px; font-weight: 600; letter-spacing: 1px; }
+
+.bg-icon {
+  position: absolute; right: -5px; bottom: -5px; font-size: 3.5rem; color: rgba(255, 255, 255, 0.03); transform: rotate(-15deg);
+}
+
+
+/* --- PLANTILLA --- */
+.section-title {
+  color: white; font-family: 'Rajdhani'; font-weight: 700; font-size: 1.1rem;
+  display: flex; align-items: center; gap: 10px; margin-bottom: 20px; border-bottom: 1px solid #1e293b; padding-bottom: 10px;
+}
+.count { color: #2f80ed; }
 
 .squad-grid {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 20px; padding: 20px; max-width: 1000px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px;
 }
 
-.player-card {
-  background: rgba(15, 21, 37, 0.8); border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 12px; overflow: hidden; text-align: center; padding-bottom: 15px;
-  transition: transform 0.2s;
+.cyber-player-card {
+  background: rgba(9, 14, 26, 0.95);
+  border: 1px solid #1e293b;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s, border-color 0.2s;
+  
+  &:hover {
+    transform: translateY(-3px);
+    border-color: #2f80ed;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+  }
 }
-.player-card:hover { transform: translateY(-5px); border-color: #2f80ed; }
 
-.avatar-box {
-  background: #1e293b; padding: 10px; margin-bottom: 10px;
-  img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid #2f80ed; }
+.player-img-box {
+  background: linear-gradient(180deg, rgba(30, 41, 59, 0.5) 0%, rgba(9, 14, 26, 1) 100%);
+  padding: 15px;
+  display: flex; justify-content: center;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  
+  img { 
+    width: 70px; height: 70px; border-radius: 50%; 
+    border: 2px solid #334155; background: #000; object-fit: cover; 
+  }
 }
 
-.p-name { display: block; color: white; font-weight: 700; font-size: 0.9rem; margin-bottom: 5px; }
-.p-stats { color: #94a3b8; font-size: 0.8rem; font-family: 'Rajdhani'; }
+.player-data { padding: 12px; }
+
+.p-name { 
+  display: block; color: white; font-weight: 700; font-size: 0.9rem; margin-bottom: 8px; 
+  line-height: 1.2; height: 2.4em; overflow: hidden;
+}
+
+.p-stats-row {
+  display: flex; justify-content: space-between; align-items: center;
+  background: rgba(47, 128, 237, 0.1); padding: 4px 8px; border-radius: 4px;
+}
+
+.stat-label { font-size: 0.65rem; color: #2f80ed; font-weight: 700; }
+.stat-val { font-size: 0.9rem; color: white; font-weight: 800; font-family: 'Rajdhani'; }
+
+.empty-state {
+  text-align: center; color: #64748b; font-style: italic; grid-column: 1 / -1; padding: 20px;
+}
