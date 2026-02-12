@@ -16,13 +16,10 @@ import { chevronBack, person, trophy, statsChart, podium, football, analytics } 
 export class DetalleEquipoPage implements OnInit {
   
   teamName: string = '';
-  
-  // Inicializamos con 0 para que SIEMPRE se vea la estructura
-  teamStats: any = {
-    rank: '-', points: 0, won: 0, drawn: 0, lost: 0, gf: 0, gc: 0
-  };
-  
+  teamStats: any = null;
   players: any[] = [];
+  
+  // Imagen por defecto por si la base de datos devuelve null
   teamBadge: string = 'assets/default-shield.png'; 
 
   private apiUrl = 'https://api-bets-soccer.vercel.app/api'; 
@@ -32,7 +29,6 @@ export class DetalleEquipoPage implements OnInit {
   }
 
   ngOnInit() {
-    // 1. Decodificar el nombre para evitar problemas con %20 o tildes
     const rawName = this.route.snapshot.paramMap.get('name') || '';
     this.teamName = decodeURIComponent(rawName);
     
@@ -45,18 +41,20 @@ export class DetalleEquipoPage implements OnInit {
   loadTeamStats() {
     this.http.get<any[]>(`${this.apiUrl}/league/standings`).subscribe({
       next: (data) => {
-        // 2. Búsqueda flexible (ignorando mayúsculas/minúsculas)
-        const foundTeam = data.find(t => 
-          t.teamName.toLowerCase().trim() === this.teamName.toLowerCase().trim()
-        );
+        const foundTeam = data.find(t => {
+          const currentName = t.name || t.teamName; 
+          if (!currentName) return false;
+          return currentName.toLowerCase().trim() === this.teamName.toLowerCase().trim();
+        });
         
         if (foundTeam) {
           this.teamStats = foundTeam;
-          // Calculamos ranking basado en el índice
           this.teamStats.rank = data.indexOf(foundTeam) + 1;
           
+          // AQUÍ: Forzamos la lectura de la columna 'badge'
           if (foundTeam.badge) {
             this.teamBadge = foundTeam.badge;
+            console.log('Escudo cargado:', this.teamBadge);
           }
         }
       },
@@ -65,13 +63,9 @@ export class DetalleEquipoPage implements OnInit {
   }
 
   loadPlayers() {
-    // Codificamos de nuevo para la petición HTTP
     const encodedName = encodeURIComponent(this.teamName);
-    
     this.http.get<any[]>(`${this.apiUrl}/teams/${encodedName}/players`).subscribe({
-      next: (data) => {
-        this.players = data;
-      },
+      next: (data) => { this.players = data; },
       error: (err) => console.error('Error jugadores:', err)
     });
   }

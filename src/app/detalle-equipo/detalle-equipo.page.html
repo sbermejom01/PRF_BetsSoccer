@@ -8,12 +8,13 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="cyber-bg">
-  
   <div class="content-wrapper">
 
     <div class="team-header-cyber">
       <div class="badge-holo-container">
-        <img [src]="teamBadge" class="hologram-badge">
+        <img [src]="teamBadge" 
+             (error)="teamBadge = 'assets/default-shield.png'" 
+             class="hologram-badge">
         <div class="scan-line"></div>
       </div>
       
@@ -21,48 +22,44 @@
         <h1>{{ teamName }}</h1>
         <div class="tags">
           <span class="cyber-tag">LIGA 2077</span>
-          <span class="cyber-tag active">ACTIVO</span>
+          <span class="cyber-tag active">CONECTADO</span>
         </div>
       </div>
     </div>
 
-    <div class="stats-hud">
-      
+    <div class="stats-hud" *ngIf="teamStats">
       <div class="hud-card rank-card">
-        <div class="hud-label">RANKING</div>
+        <div class="hud-label">POSICIÓN</div>
         <div class="hud-value text-gold">#{{ teamStats.rank }}</div>
         <ion-icon name="podium" class="bg-icon"></ion-icon>
       </div>
 
       <div class="hud-card">
         <div class="hud-label">PUNTOS</div>
-        <div class="hud-value text-neon">{{ teamStats.points }}</div>
+        <div class="hud-value text-neon">{{ teamStats.pts || teamStats.points || 0 }}</div>
         <ion-icon name="trophy" class="bg-icon"></ion-icon>
       </div>
 
       <div class="hud-card record-card">
-        <div class="hud-label">RECORD (W-D-L)</div>
+        <div class="hud-label">HISTORIAL (G-E-P)</div>
         <div class="record-display">
-          <span class="win">{{ teamStats.won }}</span>
+          <span class="win">{{ teamStats.pg || 0 }}</span>
           <span class="sep">/</span>
-          <span class="draw">{{ teamStats.drawn }}</span>
+          <span class="draw">{{ teamStats.pe || 0 }}</span>
           <span class="sep">/</span>
-          <span class="loss">{{ teamStats.lost }}</span>
+          <span class="loss">{{ teamStats.pp || 0 }}</span>
         </div>
         <div class="goals-mini">
-          GF: {{ teamStats.gf || teamStats.goalsFor || 0 }} | 
-          GC: {{ teamStats.gc || teamStats.goalsAgainst || teamStats.ga || 0 }}
+          GF: {{ teamStats.gf || 0 }} | GC: {{ teamStats.gc || 0 }}
         </div>
         <ion-icon name="analytics" class="bg-icon"></ion-icon>
       </div>
-
     </div>
 
     <div class="squad-section">
       <div class="section-title">
         <ion-icon name="person"></ion-icon> PLANTILLA REGISTRADA <span class="count">({{ players.length }})</span>
       </div>
-
       <div class="squad-grid">
         <div class="cyber-player-card" *ngFor="let player of players">
           <div class="player-img-box">
@@ -75,10 +72,6 @@
               <span class="stat-val">{{ player.goals }}</span>
             </div>
           </div>
-        </div>
-        
-        <div class="empty-state" *ngIf="players.length === 0">
-          <p>Cargando datos de jugadores...</p>
         </div>
       </div>
     </div>
