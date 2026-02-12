@@ -5,7 +5,31 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { IonicModule, ToastController, IonContent } from '@ionic/angular';
 import { addIcons } from 'ionicons';
-import { send, timeOutline, football, chatbubblesOutline, chevronBack } from 'ionicons/icons';
+import { send, timeOutline, football, chatbubblesOutline, chevronBack, personCircleOutline, listOutline, alertCircle, calendarOutline } from 'ionicons/icons';
+import { retry } from 'rxjs/operators'; // IMPORTANTE: Para reintentar si da 503
+
+const TEAM_IMAGES: { [key: string]: string } = {
+  'Real Madrid': 'assets/pack-escudos/real_madrid.png',
+  'FC Barcelona': 'assets/pack-escudos/fc_barcelona.png',
+  'Atlético Madrid': 'assets/pack-escudos/atletico.png',
+  'Real Sociedad': 'assets/pack-escudos/real_sociedad.png',
+  'Villarreal': 'assets/pack-escudos/villarreal.png',
+  'Real Betis': 'assets/pack-escudos/betis.png',
+  'Athletic Club': 'assets/pack-escudos/athletic.png',
+  'Sevilla FC': 'assets/pack-escudos/sevilla.png',
+  'Osasuna': 'assets/pack-escudos/osasuna.png',
+  'Girona FC': 'assets/pack-escudos/girona.png',
+  'Rayo Vallecano': 'assets/pack-escudos/rayo.png',
+  'Celta de Vigo': 'assets/pack-escudos/celta.png',
+  'Valencia CF': 'assets/pack-escudos/valencia.png',
+  'Getafe CF': 'assets/pack-escudos/getafe.png',
+  'RCD Mallorca': 'assets/pack-escudos/mallorca.png',
+  'UD Las Palmas': 'assets/pack-escudos/las_palmas.png',
+  'Deportivo Alavés': 'assets/pack-escudos/alaves.png',
+  'Granada CF': 'assets/pack-escudos/granada.png',
+  'Cádiz CF': 'assets/pack-escudos/cadiz.png',
+  'UD Almería': 'assets/pack-escudos/almeria.png'
+};
 
 @Component({
   selector: 'app-detalle-partido',
@@ -16,64 +40,93 @@ import { send, timeOutline, football, chatbubblesOutline, chevronBack } from 'io
 })
 export class DetallePartidoPage implements OnInit, OnDestroy {
   
-  // SOLUCIÓN 1: Añadir '!' para decirle a TS que existirá seguro
   @ViewChild(IonContent) content!: IonContent;
 
-  // SOLUCIÓN 2: Inicializar a 0 para que no sea undefined
   matchId: number = 0;
-  
   match: any = null;
   messages: any[] = [];
   newMessage: string = '';
   
   betData = { homeScore: 0, awayScore: 0 };
   
-  currentUser: any = {};
+  currentUser: any = { username: 'Invitado', id: 0 };
   private apiUrl = 'https://api-bets-soccer.vercel.app/api'; 
   
-  // Opcional: poner '?' o inicializar si te da error también
-  intervalId: any; 
+  intervalId: any = null; // Inicializamos a null
 
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient,
     private toastCtrl: ToastController
   ) {
-    addIcons({ send, timeOutline, football, chatbubblesOutline, chevronBack });
+    addIcons({ send, timeOutline, football, chatbubblesOutline, chevronBack, personCircleOutline, listOutline, alertCircle, calendarOutline });
   }
 
   ngOnInit() {
-    // Aquí es donde realmente le damos valor
     this.matchId = Number(this.route.snapshot.paramMap.get('id'));
     
     const userStr = localStorage.getItem('user');
     if (userStr) this.currentUser = JSON.parse(userStr);
 
+    // Cargamos datos iniciales
     this.loadMatchData();
     this.loadChat();
-
-    this.intervalId = setInterval(() => {
-      this.loadMatchData();
-      this.loadChat();
-    }, 5000);
   }
 
   ngOnDestroy() {
-    if (this.intervalId) clearInterval(this.intervalId);
+    this.stopLiveUpdates();
   }
 
   loadMatchData() {
-    this.http.get<any>(`${this.apiUrl}/matches/${this.matchId}`).subscribe(data => {
-      if (!data.homeBadge) data.homeBadge = '/assets/default-shield.png';
-      if (!data.awayBadge) data.awayBadge = '/assets/default-shield.png';
-      this.match = data;
-    });
+    this.http.get<any>(`${this.apiUrl}/matches/${this.matchId}`)
+      .pipe(retry(2)) // Si da 503, reintenta 2 veces antes de fallar
+      .subscribe({
+        next: (data) => {
+          // Asignar escudos
+          data.homeBadge = TEAM_IMAGES[data.home] || 'assets/default-shield.png';
+          data.awayBadge = TEAM_IMAGES[data.away] || 'assets/default-shield.png';
+          
+          this.match = data;
+
+          // LÓGICA INTELIGENTE DE ACTUALIZACIÓN
+          if (this.match.status === 'live') {
+            // Si está en vivo y no tenemos intervalo activo, lo arrancamos
+            if (!this.intervalId) {
+              this.startLiveUpdates();
+            }
+          } else {
+            // Si NO está en vivo (finished o pending), paramos actualizaciones innecesarias
+            this.stopLiveUpdates();
+          }
+        },
+        error: (err) => console.error("Error cargando partido (servidor ocupado):", err)
+      });
   }
 
   loadChat() {
-    this.http.get<any[]>(`${this.apiUrl}/messages/${this.matchId}`).subscribe(msgs => {
-      this.messages = msgs;
-    });
+    this.http.get<any[]>(`${this.apiUrl}/messages/${this.matchId}`)
+      .pipe(retry(2))
+      .subscribe({
+        next: (msgs) => this.messages = msgs,
+        error: () => console.log("Chat no disponible temporalmente")
+      });
+  }
+
+  // --- CONTROL DEL INTERVALO ---
+  startLiveUpdates() {
+    console.log("⚽ Partido EN VIVO: Iniciando actualizaciones automáticas...");
+    this.intervalId = setInterval(() => {
+      this.loadMatchData();
+      this.loadChat();
+    }, 5000); // 5 segundos es buen ritmo para Live
+  }
+
+  stopLiveUpdates() {
+    if (this.intervalId) {
+      console.log("⏹️ Deteniendo actualizaciones (Partido no está en vivo)");
+      clearInterval(this.intervalId);
+      this.intervalId = null;
+    }
   }
 
   sendMessage() {
@@ -88,7 +141,6 @@ export class DetallePartidoPage implements OnInit, OnDestroy {
     this.http.post(`${this.apiUrl}/messages`, payload).subscribe(() => {
       this.newMessage = '';
       this.loadChat();
-      // Usamos el content con seguridad
       if (this.content) {
         this.content.scrollToBottom(300);
       }

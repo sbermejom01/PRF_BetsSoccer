@@ -64,8 +64,8 @@
           <div class="event-row" *ngFor="let ev of match.events">
             <div class="ev-time">{{ ev.minute }}'</div>
             <div class="ev-icon">
-              <ion-icon [name]="ev.description.includes('Gol') ? 'football' : 'alert-circle'" 
-                        [class.icon-goal]="ev.description.includes('Gol')"></ion-icon>
+              <ion-icon [name]="ev.description?.includes('Gol') ? 'football' : 'alert-circle'" 
+                        [class.icon-goal]="ev.description?.includes('Gol')"></ion-icon>
             </div>
             <div class="ev-desc">
               <span class="action-text">{{ ev.description }}</span>
@@ -74,7 +74,7 @@
         </div>
       </div>
 
-      <div class="betting-card" *ngIf="match.status !== 'finished'">
+      <div class="betting-card" *ngIf="match.status === 'pending'">
         <div class="card-title"><h3>Realizar Predicción</h3></div>
         <div class="bet-controls">
           <div class="control-group">
