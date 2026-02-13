@@ -44,7 +44,7 @@ export class PanelPage implements OnInit, OnDestroy {
   
   private apiUrl = 'https://api-bets-soccer.vercel.app/api'; 
   
-  selectedSegment: string = 'live';
+  selectedSegment: string = 'upcoming'; 
 
   liveMatches: any[] = [];
   upcomingMatches: any[] = [];
@@ -55,8 +55,7 @@ export class PanelPage implements OnInit, OnDestroy {
 
   constructor(
     private http: HttpClient, 
-    private router: Router,
-    private toastCtrl: ToastController
+    private router: Router
   ) {
     addIcons({ statsChart, football, wallet, timeOutline, calendarOutline, checkmarkCircleOutline, flame });
   }
@@ -85,33 +84,40 @@ export class PanelPage implements OnInit, OnDestroy {
   loadMatches() {
     this.http.get<any[]>(`${this.apiUrl}/matches`).subscribe({
       next: (data) => {
-        // Limpiamos arrays antes de rellenar
-        this.liveMatches = [];
-        this.upcomingMatches = [];
-        this.finishedMatches = [];
+        if (!Array.isArray(data)) return;
 
-        if (Array.isArray(data)) {
-            data.forEach(match => {
-              // ASIGNAR ESCUDOS DESDE LOCAL
-              match.homeBadge = TEAM_IMAGES[match.home] || 'assets/default-shield.png';
-              match.awayBadge = TEAM_IMAGES[match.away] || 'assets/default-shield.png';
-    
-              if (match.status === 'live') {
-                this.liveMatches.push(match);
-              } else if (match.status === 'finished') {
-                this.finishedMatches.push(match);
-              } else {
-                // status 'pending' va aquí
-                this.upcomingMatches.push(match);
-              }
-            });
-        }
+        const allMatches = data.map(m => {
+            const homeName = m.home_team || m.home;
+            const awayName = m.away_team || m.away;
+            
+            return {
+                ...m,
+                home: homeName,
+                away: awayName,
+                homeBadge: TEAM_IMAGES[homeName] || 'assets/default-shield.png',
+                awayBadge: TEAM_IMAGES[awayName] || 'assets/default-shield.png'
+            };
+        });
 
-        // LÓGICA DE VISUALIZACIÓN:
-        // Si estamos en la pestaña 'live' pero no hay partidos en vivo, 
-        // y SÍ hay próximos partidos, cambiamos la pestaña automáticamente.
+        const live = allMatches.filter(m => m.status === 'live');
+        
+        const upcoming = allMatches
+            .filter(m => m.status === 'pending')
+            .sort((a, b) => a.id - b.id)
+            .slice(0, 20);
+
+        const finished = allMatches
+            .filter(m => m.status === 'finished')
+            .sort((a, b) => b.id - a.id)
+            .slice(0, 20);
+
+        this.liveMatches = live;
+        this.upcomingMatches = upcoming;
+        this.finishedMatches = finished;
+
+        console.log(`Partidos cargados -> Live: ${live.length}, Next: ${upcoming.length}, Last: ${finished.length}`);
+
         if (this.selectedSegment === 'live' && this.liveMatches.length === 0 && this.upcomingMatches.length > 0) {
-          this.selectedSegment = 'upcoming';
         }
       },
       error: (err) => console.error('Error cargando partidos', err)
@@ -119,15 +125,11 @@ export class PanelPage implements OnInit, OnDestroy {
   }
 
   goToMatchDetail(matchId: number) {
-    this.router.navigate(['/partido', matchId]); // Asegúrate que la ruta en tu app-routing sea 'detalle-partido' o 'partido'
+    this.router.navigate(['/partido', matchId]); 
   }
 
   goToTeamDetail(teamName: string, event: Event) {
     event.stopPropagation(); 
-    this.router.navigate(['/equipo', teamName]); // Asegúrate que la ruta sea correcta en tu routing
-  }
-
-  quickBet(match: any, type: '1' | 'X' | '2') {
-    this.goToMatchDetail(match.id);
+    this.router.navigate(['/equipo', teamName]); 
   }
 }

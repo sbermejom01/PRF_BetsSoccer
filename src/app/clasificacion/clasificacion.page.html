@@ -28,14 +28,12 @@
               </div>
             </td>
             <td class="team-cell">
-              <img [src]="team.badge || 'assets/default-shield.png'" class="mini-logo-img">
-              {{ team.teamName }}
+              <div class="shield-circle">
+                <img [src]="team.badge || 'assets/default-shield.png'" class="mini-logo-img">
+              </div>
+              <span class="t-name">{{ team.name }}</span>
             </td>
-            <td>{{ team.played }}</td>
-            <td>{{ team.won }}</td>
-            <td>{{ team.drawn }}</td>
-            <td>{{ team.lost }}</td>
-            <td class="points">{{ team.points }}</td>
+            <td>{{ team.pj }}</td> <td>{{ team.pg }}</td> <td>{{ team.pe }}</td> <td>{{ team.pp }}</td> <td class="points">{{ team.pts }}</td>
           </tr>
         </tbody>
       </table>

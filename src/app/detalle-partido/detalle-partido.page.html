@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/home" icon="chevron-back" text="VOLVER"></ion-back-button>
     </ion-buttons>
-    <ion-title class="rajdhani-title">SALA DE OPERACIONES</ion-title>
+    <ion-title class="rajdhani-title">DETALLE PARTIDO</ion-title>
     
     <div slot="end" class="user-chip">
       <ion-icon name="person-circle-outline"></ion-icon>
@@ -63,12 +63,25 @@
 
           <div class="event-row" *ngFor="let ev of match.events">
             <div class="ev-time">{{ ev.minute }}'</div>
+            
             <div class="ev-icon">
-              <ion-icon [name]="ev.description?.includes('Gol') ? 'football' : 'alert-circle'" 
-                        [class.icon-goal]="ev.description?.includes('Gol')"></ion-icon>
+              <ion-icon 
+                [name]="ev.type === 'goal' ? 'football' : 'alert-circle'" 
+                [class.icon-goal]="ev.type === 'goal'">
+              </ion-icon>
             </div>
+            
             <div class="ev-desc">
-              <span class="action-text">{{ ev.description }}</span>
+              <span class="action-text">
+                <ng-container *ngIf="ev.type === 'goal'">
+                  <strong class="text-goal">¡GOOOOOOL!</strong> de <span class="player-highlight">{{ ev.player }}</span>
+                  <span class="score-snapshot">({{ ev.score }})</span>
+                </ng-container>
+
+                <ng-container *ngIf="ev.type !== 'goal'">
+                  {{ ev.type | uppercase }} - {{ ev.player }}
+                </ng-container>
+              </span>
             </div>
           </div>
         </div>

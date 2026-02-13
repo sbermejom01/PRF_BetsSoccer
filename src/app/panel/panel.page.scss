@@ -61,18 +61,17 @@
   padding: 1px 5px; border-radius: 4px; margin-left: 5px;
 }
 
-/* CARTAS DE PARTIDO - NUEVO ESTILO */
+/* CARTAS DE PARTIDO */
 .match-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 20px;
 }
 
 .match-card {
-  /* Fondo base oscuro, borde sutil */
   background: rgba(13, 17, 29, 0.95); 
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px; /* Bordes más redondeados como en la foto */
+  border-radius: 16px; 
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -87,13 +86,11 @@
 
 /* Estilo LIVE */
 .live-card {
-  /* Borde rojo neón */
   border-color: rgba(239, 68, 68, 0.6);
   box-shadow: 0 0 15px rgba(239, 68, 68, 0.1);
   background: linear-gradient(145deg, rgba(20, 10, 10, 0.95), rgba(13, 17, 29, 0.95));
 }
 
-/* Cabecera compacta */
 .card-header-compact {
   display: flex;
   justify-content: space-between;
@@ -103,12 +100,10 @@
   letter-spacing: 1px;
 }
 
-/* Scoreboard "Caja" Central */
 .scoreboard-box {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* Fondo interior más claro para destacar */
   background: rgba(255, 255, 255, 0.03); 
   border-radius: 12px;
   padding: 20px 15px;
@@ -122,20 +117,19 @@
   gap: 10px;
   flex: 1;
   text-align: center;
-  cursor: pointer; /* Indica que es clicable */
+  cursor: pointer; 
 }
 
-/* Wrapper para el logo circular */
 .logo-wrapper {
   width: 65px; 
   height: 65px;
-  background: white; /* Fondo blanco detrás del escudo */
+  background: white;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  border: 2px solid #2f80ed; /* Borde neón para integrarlo */
+  border: 2px solid #2f80ed;
   box-shadow: 0 0 10px rgba(47, 128, 237, 0.3);
   margin-bottom: 5px;
   transition: transform 0.2s;
@@ -151,7 +145,7 @@
 }
 
 .team-logo-large {
-  width: 80%; /* Ajuste para que quede bien dentro del círculo */
+  width: 80%;
   height: 80%;
   object-fit: contain;
 }
@@ -168,7 +162,6 @@
   font-weight: 800;
   font-size: 0.9rem;
   line-height: 1.2;
-  /* Truncar nombres largos */
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -196,7 +189,6 @@
   color: #64748b; font-size: 0.8rem; margin-top: 5px; font-weight: 600;
 }
 
-/* Último Gol */
 .last-goal-event {
   background: rgba(255, 255, 255, 0.05);
   padding: 8px 12px;
@@ -210,7 +202,6 @@
   strong { color: white; }
 }
 
-/* Botón Principal Grande */
 .main-action-btn {
   margin-top: 5px;
   height: 45px;
@@ -218,14 +209,12 @@
   letter-spacing: 1px;
 }
 
-/* Estilos específicos para Finalizados */
 .finished-card { opacity: 0.9; border-color: #334155; }
 .compact { padding: 15px; }
 .finished-score { color: #94a3b8; text-shadow: none; }
 .status-finished { color: #94a3b8; }
 .btn-text { margin-top: 5px; padding: 10px; }
 
-/* ... (Resto de estilos, empty-state, fade-in se mantienen) ... */
 .empty-state {
   text-align: center; color: #64748b; margin-top: 40px;
   ion-icon { font-size: 3rem; margin-bottom: 10px; opacity: 0.5; }
@@ -234,3 +223,32 @@
 
 .fade-in { animation: fadeIn 0.3s ease-out; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+.empty-state-live {
+  text-align: center;
+  padding: 50px 20px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 12px;
+  border: 1px dashed rgba(255, 255, 255, 0.1);
+  margin-top: 20px;
+
+  ion-icon {
+    font-size: 3rem;
+    color: #64748b;
+    margin-bottom: 15px;
+  }
+
+  p {
+    color: white;
+    font-family: 'Rajdhani';
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin: 0;
+  }
+
+  .sub-text {
+    color: #94a3b8;
+    font-size: 0.9rem;
+    margin-top: 5px;
+    display: block;
+  }
+}

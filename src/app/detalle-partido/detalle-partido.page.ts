@@ -13,7 +13,7 @@ const TEAM_IMAGES: { [key: string]: string } = {
   'FC Barcelona': 'assets/pack-escudos/fc_barcelona.png',
   'Atlético Madrid': 'assets/pack-escudos/atletico.png',
   'Real Sociedad': 'assets/pack-escudos/real_sociedad.png',
-  'Villarreal': 'assets/pack-escudos/villarreal.png',
+  'Villarreal': 'assets/pack-escudos/villareal.png',
   'Real Betis': 'assets/pack-escudos/betis.png',
   'Athletic Club': 'assets/pack-escudos/athletic.png',
   'Sevilla FC': 'assets/pack-escudos/sevilla.png',
@@ -82,7 +82,6 @@ export class DetallePartidoPage implements OnInit, OnDestroy {
       .pipe(retry(2)) // Si da 503, reintenta 2 veces antes de fallar
       .subscribe({
         next: (data) => {
-          // Asignar escudos
           data.homeBadge = TEAM_IMAGES[data.home] || 'assets/default-shield.png';
           data.awayBadge = TEAM_IMAGES[data.away] || 'assets/default-shield.png';
           

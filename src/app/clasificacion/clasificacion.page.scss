@@ -1,34 +1,25 @@
 :host { display: block; width: 100%; padding: 10px; }
 
 .cyber-panel {
-  background: rgba(15, 21, 37, 0.85);
+  background: rgba(15, 21, 37, 0.95); 
   border: 1px solid rgba(0, 240, 255, 0.2);
   border-radius: 12px;
-  padding: 20px;
+  padding: 10px;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+  
+  @media(min-width: 768px) { padding: 20px; }
 }
 
 .panel-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
   border-bottom: 1px solid rgba(255,255,255,0.1);
   padding-bottom: 15px;
 }
 
-h2 { color: white; font-family: 'Rajdhani'; margin: 0; font-weight: 800; font-size: 1.5rem; }
-
-.tabs .tab {
-  font-size: 0.8rem;
-  padding: 6px 15px;
-  border: 1px solid #1e293b;
-  color: #64748b;
-  margin-left: 5px;
-  cursor: pointer;
-  border-radius: 4px;
-}
-.tabs .tab.active { background: rgba(0, 240, 255, 0.1); border-color: #00f0ff; color: #00f0ff; }
+h2 { color: white; font-family: 'Rajdhani'; margin: 0; font-weight: 800; font-size: 1.4rem; }
 
 /* TABLA */
 .table-container { overflow-x: auto; }
@@ -36,38 +27,69 @@ h2 { color: white; font-family: 'Rajdhani'; margin: 0; font-weight: 800; font-si
 
 .cyber-table th { 
   text-align: center; 
-  padding: 15px; 
+  padding: 10px 5px; 
   color: #00f0ff; 
-  font-size: 0.9rem; 
+  font-size: 0.8rem; 
   font-weight: 700;
   border-bottom: 2px solid #1e293b; 
 }
-.text-left { text-align: left !important; }
+.text-left { text-align: left !important; padding-left: 10px; }
 
-.cyber-table td { padding: 15px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.03); font-weight: 600; }
+.cyber-table td { padding: 12px 5px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05); font-weight: 600; font-size: 0.9rem;}
 
-.team-cell { display: flex; align-items: center; gap: 12px; color: white; font-weight: 700; font-size: 1rem; }
-.mini-logo { width: 28px; height: 28px; background: #334155; border-radius: 50%; }
+/* ESTILO DEL ESCUDO */
+.team-cell { 
+  display: flex; 
+  align-items: center; 
+  gap: 10px; 
+  color: white; 
+  font-weight: 700; 
+  font-size: 1rem; 
+  padding-left: 5px;
+}
 
+.shield-circle {
+  width: 45px;
+  height: 45px;
+  min-width: 42px;
+  background: white; 
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #334155;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+.mini-logo-img {
+  width: 90%;
+  height: 90%;
+  object-fit: contain;
+}
+
+.t-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 140px;
+}
+
+/* RANKING BOX */
 .rank-box { 
-  width: 28px; height: 28px; 
+  width: 24px; height: 24px; 
   background: #1e293b; 
   color: #94a3b8; 
   font-weight: 800; 
   display: flex; align-items: center; justify-content: center; 
   border-radius: 6px; 
   margin: 0 auto;
+  font-size: 0.8rem;
 }
 
 .gold { background: #eab308; color: black; box-shadow: 0 0 10px rgba(234, 179, 8, 0.4); }
 .silver { background: #94a3b8; color: black; }
 .bronze { background: #f97316; color: black; }
 
-.points { font-weight: 800; color: #00f0ff; font-size: 1.2rem; }
+.points { font-weight: 800; color: #00f0ff; font-size: 1.1rem; }
 .top-tier td { background: rgba(0, 240, 255, 0.02); }
-.mini-logo-img {
-  width: 28px;
-  height: 28px;
-  object-fit: contain;
-  margin-right: 10px;
-}
