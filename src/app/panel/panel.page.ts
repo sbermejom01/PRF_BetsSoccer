@@ -115,10 +115,6 @@ export class PanelPage implements OnInit, OnDestroy {
         this.upcomingMatches = upcoming;
         this.finishedMatches = finished;
 
-        console.log(`Partidos cargados -> Live: ${live.length}, Next: ${upcoming.length}, Last: ${finished.length}`);
-
-        if (this.selectedSegment === 'live' && this.liveMatches.length === 0 && this.upcomingMatches.length > 0) {
-        }
       },
       error: (err) => console.error('Error cargando partidos', err)
     });

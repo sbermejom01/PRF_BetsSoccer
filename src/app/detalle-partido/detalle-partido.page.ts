@@ -2,11 +2,11 @@ import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { IonicModule, ToastController, IonContent } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import { send, timeOutline, football, chatbubblesOutline, chevronBack, personCircleOutline, listOutline, alertCircle, calendarOutline } from 'ionicons/icons';
-import { retry } from 'rxjs/operators'; // IMPORTANTE: Para reintentar si da 503
+import { retry } from 'rxjs/operators';
 
 const TEAM_IMAGES: { [key: string]: string } = {
   'Real Madrid': 'assets/pack-escudos/real_madrid.png',
@@ -52,7 +52,7 @@ export class DetallePartidoPage implements OnInit, OnDestroy {
   currentUser: any = { username: 'Invitado', id: 0 };
   private apiUrl = 'https://api-bets-soccer.vercel.app/api'; 
   
-  intervalId: any = null; // Inicializamos a null
+  intervalId: any = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -68,7 +68,6 @@ export class DetallePartidoPage implements OnInit, OnDestroy {
     const userStr = localStorage.getItem('user');
     if (userStr) this.currentUser = JSON.parse(userStr);
 
-    // Cargamos datos iniciales
     this.loadMatchData();
     this.loadChat();
   }
@@ -79,7 +78,7 @@ export class DetallePartidoPage implements OnInit, OnDestroy {
 
   loadMatchData() {
     this.http.get<any>(`${this.apiUrl}/matches/${this.matchId}`)
-      .pipe(retry(2)) // Si da 503, reintenta 2 veces antes de fallar
+      .pipe(retry(2))
       .subscribe({
         next: (data) => {
           data.homeBadge = TEAM_IMAGES[data.home] || 'assets/default-shield.png';
@@ -87,18 +86,15 @@ export class DetallePartidoPage implements OnInit, OnDestroy {
           
           this.match = data;
 
-          // LÓGICA INTELIGENTE DE ACTUALIZACIÓN
           if (this.match.status === 'live') {
-            // Si está en vivo y no tenemos intervalo activo, lo arrancamos
             if (!this.intervalId) {
               this.startLiveUpdates();
             }
           } else {
-            // Si NO está en vivo (finished o pending), paramos actualizaciones innecesarias
             this.stopLiveUpdates();
           }
         },
-        error: (err) => console.error("Error cargando partido (servidor ocupado):", err)
+        error: (err) => console.error("Error cargando partido:", err)
       });
   }
 
@@ -107,22 +103,19 @@ export class DetallePartidoPage implements OnInit, OnDestroy {
       .pipe(retry(2))
       .subscribe({
         next: (msgs) => this.messages = msgs,
-        error: () => console.log("Chat no disponible temporalmente")
+        error: () => console.log("Chat no disponible")
       });
   }
 
-  // --- CONTROL DEL INTERVALO ---
   startLiveUpdates() {
-    console.log("⚽ Partido EN VIVO: Iniciando actualizaciones automáticas...");
     this.intervalId = setInterval(() => {
       this.loadMatchData();
       this.loadChat();
-    }, 5000); // 5 segundos es buen ritmo para Live
+    }, 5000);
   }
 
   stopLiveUpdates() {
     if (this.intervalId) {
-      console.log("⏹️ Deteniendo actualizaciones (Partido no está en vivo)");
       clearInterval(this.intervalId);
       this.intervalId = null;
     }
@@ -147,6 +140,17 @@ export class DetallePartidoPage implements OnInit, OnDestroy {
   }
 
   placeBet() {
+    const token = localStorage.getItem('token'); 
+
+    if (!token) {
+      this.presentToast('Debes iniciar sesión para apostar', 'warning');
+      return;
+    }
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
     const payload = {
       userId: this.currentUser.id,
       matchId: this.matchId,
@@ -154,9 +158,12 @@ export class DetallePartidoPage implements OnInit, OnDestroy {
       awayScore: this.betData.awayScore
     };
 
-    this.http.post(`${this.apiUrl}/bets`, payload).subscribe({
+    this.http.post(`${this.apiUrl}/bets`, payload, { headers }).subscribe({
       next: () => this.presentToast('Apuesta realizada con éxito', 'success'),
-      error: (err) => this.presentToast(err.error.error || 'Error al apostar', 'danger')
+      error: (err) => {
+        console.error(err);
+        this.presentToast(err.error.error || 'Error al apostar', 'danger');
+      }
     });
   }
 
