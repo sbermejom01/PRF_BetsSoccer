@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { IonicModule } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 const TEAM_IMAGES: { [key: string]: string } = {
   'Real Madrid': 'assets/pack-escudos/real_madrid.png',
@@ -38,7 +39,10 @@ export class ClasificacionPage implements OnInit {
   private apiUrl = 'https://api-bets-soccer.vercel.app/api'; 
   standings: any[] = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.http.get<any[]>(`${this.apiUrl}/league/standings`).subscribe(data => {
@@ -49,5 +53,10 @@ export class ClasificacionPage implements OnInit {
         };
       });
     });
+  }
+
+  goToTeamDetail(teamName: string, event: Event) {
+    event.stopPropagation(); 
+    this.router.navigate(['/equipo', teamName]); 
   }
 }

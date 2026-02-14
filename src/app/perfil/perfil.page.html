@@ -1,10 +1,29 @@
 <div class="profile-container">
+  
+  <div class="cyber-card stats-card">
+    <div class="stat-row">
+      <div class="stat-icon">
+        <ion-icon name="wallet"></ion-icon>
+      </div>
+      <div class="stat-info">
+        <span class="stat-label">MIS CRÉDITOS</span>
+        <span class="stat-value text-neon">{{ user.points || 0 }} CR</span>
+      </div>
+    </div>
+  </div>
+
   <div class="cyber-card">
     <h2>CONFIGURACIÓN DE CUENTA</h2>
     
     <div class="avatar-section">
-      <img [src]="user.avatar" class="big-avatar">
-      <button class="change-avatar-btn">CAMBIAR AVATAR</button>
+      <div class="avatar-wrapper">
+        <img [src]="user.avatar" class="big-avatar">
+        <div class="glitch-effect"></div>
+      </div>
+      
+      <button class="change-avatar-btn" (click)="randomizeAvatar()">
+        <ion-icon name="refresh"></ion-icon> GENERAR NUEVO AVATAR
+      </button>
     </div>
 
     <form (ngSubmit)="updateProfile()">
@@ -14,11 +33,13 @@
       </div>
 
       <div class="input-group">
-        <label>CORREO ELECTRÓNICO</label>
+        <label>CORREO ELECTRÓNICO (No editable)</label>
         <input type="email" [(ngModel)]="user.email" name="email" class="native-input" disabled style="opacity: 0.5;">
       </div>
 
-      <button type="submit" class="save-btn">GUARDAR CAMBIOS</button>
+      <button type="submit" class="save-btn">
+        GUARDAR CAMBIOS
+      </button>
     </form>
   </div>
 </div>

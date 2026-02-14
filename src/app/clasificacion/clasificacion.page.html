@@ -28,7 +28,7 @@
               </div>
             </td>
             <td class="team-cell">
-              <div class="shield-circle">
+              <div class="shield-circle" (click)="goToTeamDetail(team.name, $event)">
                 <img [src]="team.badge || 'assets/default-shield.png'" class="mini-logo-img">
               </div>
               <span class="t-name">{{ team.name }}</span>

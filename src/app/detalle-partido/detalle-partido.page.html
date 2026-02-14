@@ -20,7 +20,7 @@
       <div class="score-card">
         <div class="match-header">
           <div class="team-block">
-            <div class="badge-container">
+            <div class="badge-container" (click)="goToTeamDetail(match.home, $event)">
               <img [src]="match.homeBadge" class="team-badge">
             </div>
             <h2 class="team-name">{{ match.home }}</h2>
@@ -42,7 +42,7 @@
           </div>
 
           <div class="team-block">
-            <div class="badge-container">
+            <div class="badge-container" (click)="goToTeamDetail(match.away, $event)">
               <img [src]="match.awayBadge" class="team-badge">
             </div>
             <h2 class="team-name">{{ match.away }}</h2>

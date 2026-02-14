@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { IonicModule, ToastController, IonContent } from '@ionic/angular';
 import { addIcons } from 'ionicons';
@@ -13,7 +13,7 @@ const TEAM_IMAGES: { [key: string]: string } = {
   'FC Barcelona': 'assets/pack-escudos/fc_barcelona.png',
   'Atlético Madrid': 'assets/pack-escudos/atletico.png',
   'Real Sociedad': 'assets/pack-escudos/real_sociedad.png',
-  'Villarreal': 'assets/pack-escudos/villareal.png',
+  'Villarreal': 'assets/pack-escudos/villarreal.png',
   'Real Betis': 'assets/pack-escudos/betis.png',
   'Athletic Club': 'assets/pack-escudos/athletic.png',
   'Sevilla FC': 'assets/pack-escudos/sevilla.png',
@@ -57,7 +57,8 @@ export class DetallePartidoPage implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private router: Router
   ) {
     addIcons({ send, timeOutline, football, chatbubblesOutline, chevronBack, personCircleOutline, listOutline, alertCircle, calendarOutline });
   }
@@ -173,4 +174,10 @@ export class DetallePartidoPage implements OnInit, OnDestroy {
     });
     toast.present();
   }
+
+  goToTeamDetail(teamName: string, event: Event) {
+    event.stopPropagation(); 
+    this.router.navigate(['/equipo', teamName]); 
+  }
+
 }
